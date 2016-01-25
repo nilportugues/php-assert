@@ -11,12 +11,9 @@
             "email": "contact@nilportugues.com"
         }
     ],
-    "require": {
-        "nilportugues/validator": "^2.0"
-    },
     "require-dev": {
-        "phpunit/phpunit": "~4.7",
-        "fabpot/php-cs-fixer": "dev-master"
+        "phpunit/phpunit": "~4.8",
+        "fabpot/php-cs-fixer": "1.9.*"
     },
     "autoload": {
         "psr-4": {

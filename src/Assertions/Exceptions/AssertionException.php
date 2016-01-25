@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-namespace NilPortugues\Assert;
+namespace NilPortugues\Assert\Assertions\Exceptions;
 
 use InvalidArgumentException;
 
-class AssertionFailedException extends InvalidArgumentException
+class AssertionException extends InvalidArgumentException
 {
 }
