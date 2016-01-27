@@ -15,6 +15,32 @@ use NilPortugues\Assert\Exceptions\AssertionException;
 class StringAssertions
 {
     const ASSERT_IS_STRING = 'Asserting that value is string failed. Value provided is of type %s.';
+    const ASSERT_HAS_STRING_SUBSET = '';
+    const ASSERT_IS_UUID = '';
+    const ASSERT_IS_URL = '';
+    const ASSERT_IS_EMAIL = '';
+    const ASSERT_HAS_SPECIAL_CHARACTERS = '';
+    const ASSERT_HAS_NUMERIC = '';
+    const ASSERT_HAS_UPPERCASE = '';
+    const ASSERT_HAS_LOWERCASE = '';
+    const ASSERT_IS_HEX_DIGIT = '';
+    const ASSERT_IS_VOWEL = '';
+    const ASSERT_IS_CONTROL_CHARACTERS = '';
+    const ASSERT_IS_ALPHANUMERIC = '';
+    const ASSERT_IS_ALPHA = '';
+    const ASSERT_IS_BETWEEN = '';
+    const ASSERT_IS_CHARSET = '';
+    const ASSERT_ALL_CONSONANTS = '';
+    const ASSERT_CONTAINS = '';
+    const ASSERT_IS_DIGIT = '';
+    const ASSERT_HAS_GRAPHICAL_CHARS_ONLY = '';
+    const ASSERT_HAS_LENGTH = '';
+    const ASSERT_IS_LOWERCASE = '';
+    const ASSERT_NOT_EMPTY = '';
+    const ASSERT_NO_WHITESPACE = '';
+    const ASSERT_HAS_PRINTABLE_CHARS_ONLY = '';
+    const ASSERT_IS_PUNCTUATION = '';
+    const ASSERT_MATCHES_REGEX = '';
 
     /**
      * @param $value
@@ -39,7 +65,11 @@ class StringAssertions
      */
     public static function isAlphanumeric($value, $message = '')
     {
-        return preg_match('/^[a-z0-9]+$/i', $value) > 0;
+        if (false === preg_match('/^[a-z0-9]+$/i', $value) > 0) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_ALPHANUMERIC, gettype($value))
+            );
+        }
     }
 
     /**
@@ -50,7 +80,11 @@ class StringAssertions
      */
     public static function isAlpha($value, $message = '')
     {
-        return preg_match('/^[a-z]+$/i', $value) > 0;
+        if (false === preg_match('/^[a-z]+$/i', $value) > 0) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_ALPHA, gettype($value))
+            );
+        }
     }
 
     /**
@@ -76,10 +110,18 @@ class StringAssertions
         }
 
         if (false === $inclusive) {
-            return $min < $length && $length < $max;
+            if (false === $min < $length && $length < $max) {
+                throw new AssertionException(
+                    ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, gettype($value))
+                );
+            }
         }
 
-        return $min <= $length && $length <= $max;
+        if (false === $min <= $length && $length <= $max) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, gettype($value))
+            );
+        }
     }
 
     /**
@@ -104,7 +146,11 @@ class StringAssertions
 
         $detectedEncoding = mb_detect_encoding($value, $charset, true);
 
-        return in_array($detectedEncoding, $charsetList, true);
+        if (false === in_array($detectedEncoding, $charsetList, true)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_CHARSET, gettype($value))
+            );
+        }
     }
 
     /**
@@ -115,7 +161,11 @@ class StringAssertions
      */
     public static function isAllConsonants($value, $message = '')
     {
-        return preg_match('/^(\s|[b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z])+$/', $value) > 0;
+        if (false === preg_match('/^(\s|[b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z])+$/', $value) > 0) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_ALL_CONSONANTS, gettype($value))
+            );
+        }
     }
 
     /**
@@ -143,7 +193,11 @@ class StringAssertions
      */
     public static function isControlCharacters($value, $message = '')
     {
-        return ctype_cntrl($value);
+        if (false === ctype_cntrl($value)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_CONTROL_CHARACTERS, gettype($value))
+            );
+        }
     }
 
     /**
@@ -154,7 +208,11 @@ class StringAssertions
      */
     public static function isDigit($value, $message = '')
     {
-        return ctype_digit($value);
+        if (false === ctype_digit($value)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_DIGIT, gettype($value))
+            );
+        }
     }
 
     /**
@@ -223,7 +281,11 @@ class StringAssertions
      */
     public static function hasGraphicalCharsOnly($value, $message = '')
     {
-        return ctype_graph($value);
+        if (false === ctype_graph($value)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_HAS_GRAPHICAL_CHARS_ONLY, gettype($value))
+            );
+        }
     }
 
     /**
@@ -237,7 +299,11 @@ class StringAssertions
     {
         settype($length, 'int');
 
-        return mb_strlen($value, mb_detect_encoding($value)) === $length;
+        if (mb_strlen($value, mb_detect_encoding($value)) !== $length) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_HAS_LENGTH, gettype($value))
+            );
+        }
     }
 
     /**
@@ -248,7 +314,11 @@ class StringAssertions
      */
     public static function isLowercase($value, $message = '')
     {
-        return $value === mb_strtolower($value, mb_detect_encoding($value));
+        if ($value !== mb_strtolower($value, mb_detect_encoding($value))) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_LOWERCASE, gettype($value))
+            );
+        }
     }
 
     /**
@@ -261,7 +331,11 @@ class StringAssertions
     {
         $value = trim($value);
 
-        return !empty($value);
+        if (empty($value)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_NOT_EMPTY, gettype($value))
+            );
+        }
     }
 
     /**
@@ -272,7 +346,11 @@ class StringAssertions
      */
     public static function noWhitespace($value, $message = '')
     {
-        return 0 === preg_match('/\s/', $value);
+        if (0 !== preg_match('/\s/', $value)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_NO_WHITESPACE, gettype($value))
+            );
+        }
     }
 
     /**
@@ -283,7 +361,11 @@ class StringAssertions
      */
     public static function hasPrintableCharsOnly($value, $message = '')
     {
-        return ctype_print($value);
+        if (false === ctype_print($value)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_HAS_PRINTABLE_CHARS_ONLY, gettype($value))
+            );
+        }
     }
 
     /**
@@ -294,7 +376,11 @@ class StringAssertions
      */
     public static function isPunctuation($value, $message = '')
     {
-        return ctype_punct($value);
+        if (false === ctype_punct($value)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_PUNCTUATION, gettype($value))
+            );
+        }
     }
 
     /**
@@ -306,7 +392,11 @@ class StringAssertions
      */
     public static function matchesRegex($value, $regex, $message = '')
     {
-        return preg_match($regex, $value) > 0;
+        if (false === preg_match($regex, $value) > 0) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_MATCHES_REGEX, gettype($value))
+            );
+        }
     }
 
     /**
@@ -335,7 +425,11 @@ class StringAssertions
      */
     public static function isSpace($value, $message = '')
     {
-        return ctype_space($value);
+        if (false === ctype_space($value)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_STRING, gettype($value))
+            );
+        }
     }
 
     /**
@@ -365,7 +459,11 @@ class StringAssertions
      */
     public static function isUppercase($value, $message = '')
     {
-        return $value === mb_strtoupper($value, mb_detect_encoding($value));
+        if ($value != mb_strtoupper($value, mb_detect_encoding($value))) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_STRING, gettype($value))
+            );
+        }
     }
 
     /**
@@ -376,7 +474,11 @@ class StringAssertions
      */
     public static function isVersion($value, $message = '')
     {
-        return preg_match('/^[0-9]+\.[0-9]+(\.[0-9]*)?([+-][^+-][0-9A-Za-z-.]*)?$/', $value) > 0;
+        if (false === preg_match('/^[0-9]+\.[0-9]+(\.[0-9]*)?([+-][^+-][0-9A-Za-z-.]*)?$/', $value) > 0) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_STRING, gettype($value))
+            );
+        }
     }
 
     /**
@@ -387,7 +489,11 @@ class StringAssertions
      */
     public static function isVowel($value, $message = '')
     {
-        return preg_match('/^(\s|[aeiouAEIOU])*$/', $value) > 0;
+        if (false === preg_match('/^(\s|[aeiouAEIOU])*$/', $value) > 0) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_VOWEL, gettype($value))
+            );
+        }
     }
 
     /**
@@ -398,7 +504,11 @@ class StringAssertions
      */
     public static function isHexDigit($value, $message = '')
     {
-        return ctype_xdigit($value);
+        if (false === ctype_xdigit($value)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_HEX_DIGIT, gettype($value))
+            );
+        }
     }
 
     /**
@@ -410,7 +520,11 @@ class StringAssertions
      */
     public static function hasLowercase($value, $amount = null, $message = '')
     {
-        return self::hasStringSubset($value, $amount, '/[a-z]/');
+        if (false === self::hasStringSubset($value, $amount, '/[a-z]/')) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_HAS_LOWERCASE, gettype($value))
+            );
+        }
     }
 
     /**
@@ -423,6 +537,7 @@ class StringAssertions
      */
     private static function hasStringSubset($value, $amount, $regex, $message = '')
     {
+        $isInvalid = true;
         settype($value, 'string');
 
         $minMatches = 1;
@@ -440,11 +555,15 @@ class StringAssertions
             }
 
             if ($counter === $minMatches) {
-                return true;
+                $isInvalid = true;
             }
         }
 
-        return false;
+        if ($isInvalid) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_HAS_STRING_SUBSET, gettype($value))
+            );
+        }
     }
 
     /**
@@ -456,7 +575,11 @@ class StringAssertions
      */
     public static function hasUppercase($value, $amount = null, $message = '')
     {
-        return self::hasStringSubset($value, $amount, '/[A-Z]/');
+        if (false === self::hasStringSubset($value, $amount, '/[A-Z]/')) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_HAS_UPPERCASE, gettype($value))
+            );
+        }
     }
 
     /**
@@ -468,7 +591,11 @@ class StringAssertions
      */
     public static function hasNumeric($value, $amount = null, $message = '')
     {
-        return self::hasStringSubset($value, $amount, '/[0-9]/');
+        if (false === self::hasStringSubset($value, $amount, '/[0-9]/')) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_HAS_NUMERIC, gettype($value))
+            );
+        }
     }
 
     /**
@@ -480,7 +607,11 @@ class StringAssertions
      */
     public static function hasSpecialCharacters($value, $amount = null, $message = '')
     {
-        return self::hasStringSubset($value, $amount, '/[^a-zA-Z\d\s]/');
+        if (false === self::hasStringSubset($value, $amount, '/[^a-zA-Z\d\s]/')) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_HAS_SPECIAL_CHARACTERS, gettype($value))
+            );
+        }
     }
 
     /**
@@ -493,7 +624,11 @@ class StringAssertions
     {
         settype($value, 'string');
 
-        return preg_match('/^[A-Z0-9._%\-+]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z0-9\-]+)$/i', $value) > 0;
+        if (false === preg_match('/^[A-Z0-9._%\-+]+@(?:[A-Z0-9\-]+\.)+(?:[A-Z0-9\-]+)$/i', $value) > 0) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_EMAIL, gettype($value))
+            );
+        }
     }
 
     /**
@@ -508,7 +643,11 @@ class StringAssertions
             $value = 'http:'.$value;
         }
 
-        return false !== filter_var($value, FILTER_VALIDATE_URL, ['options' => ['flags' => FILTER_FLAG_PATH_REQUIRED]]);
+        if (false === filter_var($value, FILTER_VALIDATE_URL, ['options' => ['flags' => FILTER_FLAG_PATH_REQUIRED]])) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_URL, gettype($value))
+            );
+        }
     }
 
     /**
@@ -528,6 +667,10 @@ class StringAssertions
             $pattern = '/^[a-f0-9]{4}(?:-?[a-f0-9]{4}){7}$/i';
         }
 
-        return preg_match($pattern, $value) > 0;
+        if (false === preg_match($pattern, $value) > 0) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_UUID, gettype($value))
+            );
+        }
     }
 }
