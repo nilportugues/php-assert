@@ -10,82 +10,119 @@
  */
 namespace NilPortugues\Assert\Assertions;
 
+use NilPortugues\Assert\Exceptions\AssertionException;
+
 class IntegerAssertions
 {
+    const ASSERT_INTEGER = 'Value must be an integer.';
+    const ASSERT_IS_NOT_ZERO = 'Value must not be zero.';
+    const ASSERT_IS_POSITIVE = 'Value must be a positive value.';
+    const ASSERT_IS_POSITIVE_OR_ZERO = 'Value must be a positive value or zero.';
+    const ASSERT_IS_NEGATIVE = 'Value must be a negative value.';
+    const ASSERT_IS_NEGATIVE_OR_ZERO = 'Value must be a negative value or zero';
+    const ASSERT_IS_BETWEEN = 'Value must be between %s and %s.';
+    const ASSERT_IS_ODD = 'Value must be divisible by 3.';
+    const ASSERT_IS_EVEN = 'Value must be divisible by 2';
+    const ASSERT_IS_MULTIPLE = 'Value must be multiple of %s.';
+
     /**
      * @param $value
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isInteger($value, $message = '')
     {
-        return is_integer($value);
+        if (false === is_integer($value)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_INTEGER
+            );
+        }
     }
 
     /**
      * @param int    $value
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isNotZero($value, $message = '')
     {
         settype($value, 'int');
 
-        return 0 != $value;
+        if (0 != $value) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_NOT_ZERO
+            );
+        }
     }
 
     /**
-     * @param float  $value
+     * @param int    $value
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isPositiveOrZero($value, $message = '')
     {
         settype($value, 'int');
 
-        return 0 <= $value;
+        if (false === 0 <= $value) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_POSITIVE_OR_ZERO
+            );
+        }
     }
 
     /**
-     * @param float  $value
+     * @param int    $value
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isPositive($value, $message = '')
     {
         settype($value, 'int');
 
-        return 0 < $value;
+        if (false === 0 < $value) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_POSITIVE
+            );
+        }
     }
 
     /**
-     * @param float  $value
+     * @param int    $value
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isNegativeOrZero($value, $message = '')
     {
         settype($value, 'int');
 
-        return 0 >= $value;
+        if (false === 0 >= $value) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_NEGATIVE_OR_ZERO
+            );
+        }
     }
 
     /**
-     * @param float  $value
+     * @param int    $value
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isNegative($value, $message = '')
     {
         settype($value, 'int');
 
-        return 0 > $value;
+        if (false === 0 > $value) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_NEGATIVE
+            );
+        }
     }
 
     /**
@@ -97,7 +134,7 @@ class IntegerAssertions
      *
      * @throws \InvalidArgumentException
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isBetween($value, $min, $max, $inclusive = false, $message = '')
     {
@@ -110,36 +147,52 @@ class IntegerAssertions
         }
 
         if (false === $inclusive) {
-            return (($value > $min) && ($value < $max));
+            if (false === (($value > $min) && ($value < $max))) {
+                throw new AssertionException(
+                    ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $min, $max)
+                );
+            }
         }
 
-        return (($value >= $min) && ($value <= $max));
+        if (false === (($value >= $min) && ($value <= $max))) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $min, $max)
+            );
+        }
     }
 
     /**
      * @param int    $value
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isOdd($value, $message = '')
     {
         settype($value, 'int');
 
-        return 0 == ($value % 3);
+        if (false === (0 == ($value % 3))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_ODD
+            );
+        }
     }
 
     /**
      * @param int    $value
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isEven($value, $message = '')
     {
         settype($value, 'int');
 
-        return 0 == ($value % 2);
+        if (false === (0 == ($value % 2))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVEN
+            );
+        }
     }
 
     /**
@@ -147,13 +200,17 @@ class IntegerAssertions
      * @param int    $multiple
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isMultiple($value, $multiple, $message = '')
     {
         settype($value, 'int');
         settype($multiple, 'int');
 
-        return 0 == ($value % $multiple);
+        if (false === (0 == ($value % $multiple))) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_MULTIPLE, $multiple)
+            );
+        }
     }
 }

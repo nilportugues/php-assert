@@ -10,30 +10,46 @@
  */
 namespace NilPortugues\Assert\Assertions;
 
+use NilPortugues\Assert\Exceptions\AssertionException;
+
 class GenericAssertions
 {
+    const ASSERT_IS_REQUIRED = 'Value field is required.';
+    const ASSERT_IS_NOT_NULL = 'Value must be a non null value.';
+    const ASSERT_NOT_EQUALS = 'Values are not equal';
+    const ASSERT_GREATER_THAN_OR_EQUAL = 'Value is not greater or equal than the provided value.';
+    const ASSERT_GREATER = 'Value is not greater than the provided value.';
+    const ASSERT_LESS_THAN_OR_EQUAL = 'Value is not less or equal than the provided value.';
+    const ASSERT_LESS = 'Value is not less than the provided value.';
+
     /**
      * @param string|null $value
      * @param string      $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isRequired($value, $message = '')
     {
-        return isset($value) === true
-        && is_null($value) === false
-        && empty($value) === false;
+        if (false === (isset($value) === true && is_null($value) === false && empty($value) === false)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_REQUIRED
+            );
+        }
     }
 
     /**
      * @param string|null $value
      * @param string      $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isNotNull($value, $message = '')
     {
-        return $value !== null && $value !== '';
+        if (false === ($value !== null && $value !== '')) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_NOT_NULL
+            );
+        }
     }
 
     /**
@@ -45,7 +61,11 @@ class GenericAssertions
      */
     public static function notEquals($property, $value, $message = '')
     {
-        return $property != $value;
+        if (false === ($property != $value)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_NOT_EQUALS
+            );
+        }
     }
 
     /**
@@ -57,7 +77,11 @@ class GenericAssertions
      */
     public static function greaterThanOrEqual($property, $value, $message = '')
     {
-        return $property >= $value;
+        if (false === ($property >= $value)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_GREATER_THAN_OR_EQUAL
+            );
+        }
     }
 
     /**
@@ -69,7 +93,11 @@ class GenericAssertions
      */
     public static function greaterThan($property, $value, $message = '')
     {
-        return $property > $value;
+        if (false === ($property > $value)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_GREATER
+            );
+        }
     }
 
     /**
@@ -81,7 +109,11 @@ class GenericAssertions
      */
     public static function lessThanOrEqual($property, $value, $message = '')
     {
-        return $property <= $value;
+        if (false === ($property <= $value)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_LESS_THAN_OR_EQUAL
+            );
+        }
     }
 
     /**
@@ -93,6 +125,10 @@ class GenericAssertions
      */
     public static function lessThan($property, $value, $message = '')
     {
-        return $property < $value;
+        if (false === ($property < $value)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_LESS
+            );
+        }
     }
 }

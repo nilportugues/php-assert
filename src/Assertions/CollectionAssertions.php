@@ -10,13 +10,15 @@
  */
 namespace NilPortugues\Assert\Assertions;
 
+use NilPortugues\Assert\Exceptions\AssertionException;
+
 class CollectionAssertions
 {
     /**
      * @param $value
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isArray($value, $message = '')
     {
@@ -31,7 +33,7 @@ class CollectionAssertions
      * @param callable|null $keyValidator
      * @param string        $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function each($value, callable $valueValidator, callable $keyValidator = null, $message = '')
     {
@@ -50,7 +52,7 @@ class CollectionAssertions
      * @param callable $keyValidator
      * @param string   $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function hasKeyFormat($value, callable $keyValidator, $message = '')
     {
@@ -78,7 +80,7 @@ class CollectionAssertions
      * @param bool   $strict
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function endsWith($haystack, $needle, $strict = false, $message = '')
     {
@@ -98,7 +100,7 @@ class CollectionAssertions
      * @param bool   $strict
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function contains($haystack, $needle, $strict = false, $message = '')
     {
@@ -124,7 +126,7 @@ class CollectionAssertions
      * @param $keyName
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function hasKey($value, $keyName, $message = '')
     {
@@ -136,7 +138,7 @@ class CollectionAssertions
      * @param $length
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function hasLength($value, $length, $message = '')
     {
@@ -149,7 +151,7 @@ class CollectionAssertions
      * @param $value
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isNotEmpty($value, $message = '')
     {
@@ -162,7 +164,7 @@ class CollectionAssertions
      * @param bool   $strict
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function startsWith($haystack, $needle, $strict = false, $message = '')
     {

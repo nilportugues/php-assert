@@ -10,6 +10,7 @@
  */
 namespace NilPortugues\Assert\Assertions;
 
+use NilPortugues\Assert\Exceptions\AssertionException;
 use NilPortugues\Assert\Exceptions\FileUploadException;
 
 class FileUploadAssertions
@@ -34,7 +35,7 @@ class FileUploadAssertions
      * @param string $uploadName
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isUploaded($uploadName, $message = '')
     {
@@ -67,7 +68,7 @@ class FileUploadAssertions
      * @param bool   $inclusive
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      *
      * @throws FileUploadException
      */
@@ -143,7 +144,7 @@ class FileUploadAssertions
      * @param string[] $allowedTypes
      * @param string   $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isMimeType($uploadName, array $allowedTypes, $message = '')
     {
@@ -170,7 +171,7 @@ class FileUploadAssertions
      * @param callable $validator
      * @param string   $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function hasFileNameFormat($uploadName, callable $validator, $message = '')
     {
@@ -191,7 +192,7 @@ class FileUploadAssertions
      * @param string $uploadDir
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function hasValidUploadDirectory($uploadName, $uploadDir, $message = '')
     {
@@ -209,7 +210,7 @@ class FileUploadAssertions
      * @param string $uploadDir
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function notOverwritingExistingFile($uploadName, $uploadDir, $message = '')
     {
@@ -234,7 +235,7 @@ class FileUploadAssertions
      * @param IntegerAssertions $size
      * @param string            $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function hasLength($uploadName, $size, $message = '')
     {
@@ -251,7 +252,7 @@ class FileUploadAssertions
      * @param string $uploadName
      * @param string $message
      *
-     * @return bool
+     * @return AssertionException
      */
     public static function isImage($uploadName, $message = '')
     {
