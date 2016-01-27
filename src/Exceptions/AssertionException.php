@@ -1,14 +1,14 @@
 <?php
+
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 6/30/15
- * Time: 10:49 PM
+ * Time: 10:49 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace NilPortugues\Assert\Assertions\Exceptions;
+namespace NilPortugues\Assert\Exceptions;
 
 use InvalidArgumentException;
 

@@ -1,58 +1,69 @@
 <?php
+
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 9/16/14
- * Time: 10:20 PM
+ * Time: 10:20 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace NilPortugues\Assert\Assertions;
 
-namespace NilPortugues\Assertions;
-
+use NilPortugues\Assert\Exceptions\AssertionException;
 
 class StringAssertions
 {
+    const ASSERT_IS_STRING = 'Asserting that value is string failed. Value provided is of type %s.';
+
     /**
      * @param $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isString($value)
+    public static function isString($value, $message = '')
     {
-        return is_string($value);
+        if (false === is_string($value)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_STRING, gettype($value))
+            );
+        }
     }
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isAlphanumeric($value)
+    public static function isAlphanumeric($value, $message = '')
     {
         return preg_match('/^[a-z0-9]+$/i', $value) > 0;
     }
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isAlpha($value)
+    public static function isAlpha($value, $message = '')
     {
         return preg_match('/^[a-z]+$/i', $value) > 0;
     }
 
     /**
-     * @param string  $value
-     * @param integer $min
-     * @param integer $max
-     * @param bool    $inclusive
+     * @param string $value
+     * @param int    $min
+     * @param int    $max
+     * @param bool   $inclusive
+     * @param string $message
      *
      * @throws \InvalidArgumentException
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isBetween($value, $min, $max, $inclusive = false)
+    public static function isBetween($value, $min, $max, $inclusive = false, $message = '')
     {
         settype($min, 'int');
         settype($max, 'int');
@@ -74,10 +85,11 @@ class StringAssertions
     /**
      * @param string $value
      * @param string $charset
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isCharset($value, $charset)
+    public static function isCharset($value, $charset, $message = '')
     {
         $available = mb_list_encodings();
 
@@ -97,22 +109,24 @@ class StringAssertions
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isAllConsonants($value)
+    public static function isAllConsonants($value, $message = '')
     {
         return preg_match('/^(\s|[b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z])+$/', $value) > 0;
     }
 
     /**
      * @param string $value
-     * @param        $contains
+     * @param string $contains
      * @param bool   $identical
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function contains($value, $contains, $identical = false)
+    public static function contains($value, $contains, $identical = false, $message = '')
     {
         if (false === $identical) {
             return false !== mb_stripos($value, $contains, 0, mb_detect_encoding($value));
@@ -123,32 +137,35 @@ class StringAssertions
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isControlCharacters($value)
+    public static function isControlCharacters($value, $message = '')
     {
         return ctype_cntrl($value);
     }
 
     /**
-     * @param $value
+     * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isDigit($value)
+    public static function isDigit($value, $message = '')
     {
         return ctype_digit($value);
     }
 
     /**
      * @param string $value
-     * @param        $contains
+     * @param string $contains
      * @param bool   $identical
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function endsWith($value, $contains, $identical = false)
+    public static function endsWith($value, $contains, $identical = false, $message = '')
     {
         $enc = mb_detect_encoding($value);
 
@@ -163,12 +180,13 @@ class StringAssertions
      * Validates if the input is equal some value.
      *
      * @param string $value
-     * @param        $comparedValue
+     * @param string $comparedValue
      * @param bool   $identical
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function equals($value, $comparedValue, $identical = false)
+    public static function equals($value, $comparedValue, $identical = false, $message = '')
     {
         if (false === $identical) {
             return $value == $comparedValue;
@@ -181,13 +199,14 @@ class StringAssertions
      * @param string $value
      * @param string $haystack
      * @param bool   $identical
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function in($value, $haystack, $identical = false)
+    public static function in($value, $haystack, $identical = false, $message = '')
     {
         $haystack = (string) $haystack;
-        $enc      = mb_detect_encoding($value);
+        $enc = mb_detect_encoding($value);
 
         if (false === $identical) {
             return (false !== mb_stripos($haystack, $value, 0, $enc));
@@ -198,21 +217,23 @@ class StringAssertions
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function hasGraphicalCharsOnly($value)
+    public static function hasGraphicalCharsOnly($value, $message = '')
     {
         return ctype_graph($value);
     }
 
     /**
-     * @param string  $value
-     * @param integer $length
+     * @param string $value
+     * @param int    $length
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function hasLength($value, $length)
+    public static function hasLength($value, $length, $message = '')
     {
         settype($length, 'int');
 
@@ -221,20 +242,22 @@ class StringAssertions
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isLowercase($value)
+    public static function isLowercase($value, $message = '')
     {
         return $value === mb_strtolower($value, mb_detect_encoding($value));
     }
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function notEmpty($value)
+    public static function notEmpty($value, $message = '')
     {
         $value = trim($value);
 
@@ -243,30 +266,33 @@ class StringAssertions
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function noWhitespace($value)
+    public static function noWhitespace($value, $message = '')
     {
         return 0 === preg_match('/\s/', $value);
     }
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function hasPrintableCharsOnly($value)
+    public static function hasPrintableCharsOnly($value, $message = '')
     {
         return ctype_print($value);
     }
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isPunctuation($value)
+    public static function isPunctuation($value, $message = '')
     {
         return ctype_punct($value);
     }
@@ -274,20 +300,22 @@ class StringAssertions
     /**
      * @param string $value
      * @param string $regex
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function matchesRegex($value, $regex)
+    public static function matchesRegex($value, $regex, $message = '')
     {
         return preg_match($regex, $value) > 0;
     }
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isSlug($value)
+    public static function isSlug($value, $message = '')
     {
         if ((false !== strstr($value, '--'))
             || (!preg_match('@^[0-9a-z\-]+$@', $value))
@@ -301,10 +329,11 @@ class StringAssertions
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isSpace($value)
+    public static function isSpace($value, $message = '')
     {
         return ctype_space($value);
     }
@@ -313,10 +342,11 @@ class StringAssertions
      * @param string $value
      * @param        $contains
      * @param bool   $identical
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function startsWith($value, $contains, $identical = false)
+    public static function startsWith($value, $contains, $identical = false, $message = '')
     {
         $enc = mb_detect_encoding($value);
 
@@ -329,40 +359,44 @@ class StringAssertions
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isUppercase($value)
+    public static function isUppercase($value, $message = '')
     {
         return $value === mb_strtoupper($value, mb_detect_encoding($value));
     }
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isVersion($value)
+    public static function isVersion($value, $message = '')
     {
         return preg_match('/^[0-9]+\.[0-9]+(\.[0-9]*)?([+-][^+-][0-9A-Za-z-.]*)?$/', $value) > 0;
     }
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isVowel($value)
+    public static function isVowel($value, $message = '')
     {
         return preg_match('/^(\s|[aeiouAEIOU])*$/', $value) > 0;
     }
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isHexDigit($value)
+    public static function isHexDigit($value, $message = '')
     {
         return ctype_xdigit($value);
     }
@@ -370,22 +404,24 @@ class StringAssertions
     /**
      * @param string $value
      * @param int    $amount
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function hasLowercase($value, $amount = null)
+    public static function hasLowercase($value, $amount = null, $message = '')
     {
         return self::hasStringSubset($value, $amount, '/[a-z]/');
     }
 
     /**
-     * @param string       $value
-     * @param integer|null $amount
-     * @param string       $regex
+     * @param string   $value
+     * @param int|null $amount
+     * @param string   $regex
+     * @param string   $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    private static function hasStringSubset($value, $amount, $regex)
+    private static function hasStringSubset($value, $amount, $regex, $message = '')
     {
         settype($value, 'string');
 
@@ -394,13 +430,13 @@ class StringAssertions
             $minMatches = $amount;
         }
 
-        $value  = preg_replace('/\s+/', '', $value);
+        $value = preg_replace('/\s+/', '', $value);
         $length = strlen($value);
 
         $counter = 0;
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; ++$i) {
             if (preg_match($regex, $value[$i]) > 0) {
-                $counter++;
+                ++$counter;
             }
 
             if ($counter === $minMatches) {
@@ -414,10 +450,11 @@ class StringAssertions
     /**
      * @param string $value
      * @param int    $amount
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function hasUppercase($value, $amount = null)
+    public static function hasUppercase($value, $amount = null, $message = '')
     {
         return self::hasStringSubset($value, $amount, '/[A-Z]/');
     }
@@ -425,10 +462,11 @@ class StringAssertions
     /**
      * @param string $value
      * @param int    $amount
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function hasNumeric($value, $amount = null)
+    public static function hasNumeric($value, $amount = null, $message = '')
     {
         return self::hasStringSubset($value, $amount, '/[0-9]/');
     }
@@ -436,20 +474,22 @@ class StringAssertions
     /**
      * @param string $value
      * @param int    $amount
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function hasSpecialCharacters($value, $amount = null)
+    public static function hasSpecialCharacters($value, $amount = null, $message = '')
     {
         return self::hasStringSubset($value, $amount, '/[^a-zA-Z\d\s]/');
     }
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isEmail($value)
+    public static function isEmail($value, $message = '')
     {
         settype($value, 'string');
 
@@ -458,12 +498,13 @@ class StringAssertions
 
     /**
      * @param string $value
+     * @param string $message
      *
-     * @return boolean
+     * @throws AssertionException
      */
-    public static function isUrl($value)
+    public static function isUrl($value, $message = '')
     {
-        if ($value[0] == $value[1] && $value[0] == "/") {
+        if ($value[0] == $value[1] && $value[0] == '/') {
             $value = 'http:'.$value;
         }
 
@@ -473,16 +514,17 @@ class StringAssertions
     /**
      * @param string $value
      * @param bool   $strict
+     * @param string $message
      *
-     * @return bool
+     * @throws AssertionException
      */
-    public static function isUUID($value, $strict = true)
+    public static function isUUID($value, $strict = true, $message = '')
     {
         settype($value, 'string');
 
         $pattern = '/^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$/i';
         if (true !== $strict) {
-            $value   = trim($value, '[]{}');
+            $value = trim($value, '[]{}');
             $pattern = '/^[a-f0-9]{4}(?:-?[a-f0-9]{4}){7}$/i';
         }
 

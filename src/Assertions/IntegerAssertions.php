@@ -1,34 +1,35 @@
 <?php
+
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 9/16/14
- * Time: 9:44 PM
+ * Time: 9:44 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace NilPortugues\Assertions;
-
+namespace NilPortugues\Assert\Assertions;
 
 class IntegerAssertions
 {
     /**
      * @param $value
+     * @param string $message
      *
      * @return bool
      */
-    public static function isInteger($value)
+    public static function isInteger($value, $message = '')
     {
         return is_integer($value);
     }
 
     /**
-     * @param integer $value
+     * @param int    $value
+     * @param string $message
      *
      * @return bool
      */
-    public static function isNotZero($value)
+    public static function isNotZero($value, $message = '')
     {
         settype($value, 'int');
 
@@ -36,11 +37,12 @@ class IntegerAssertions
     }
 
     /**
-     * @param double $value
+     * @param float  $value
+     * @param string $message
      *
      * @return bool
      */
-    public static function isPositiveOrZero($value)
+    public static function isPositiveOrZero($value, $message = '')
     {
         settype($value, 'int');
 
@@ -48,11 +50,12 @@ class IntegerAssertions
     }
 
     /**
-     * @param double $value
+     * @param float  $value
+     * @param string $message
      *
      * @return bool
      */
-    public static function isPositive($value)
+    public static function isPositive($value, $message = '')
     {
         settype($value, 'int');
 
@@ -60,11 +63,12 @@ class IntegerAssertions
     }
 
     /**
-     * @param double $value
+     * @param float  $value
+     * @param string $message
      *
      * @return bool
      */
-    public static function isNegativeOrZero($value)
+    public static function isNegativeOrZero($value, $message = '')
     {
         settype($value, 'int');
 
@@ -72,11 +76,12 @@ class IntegerAssertions
     }
 
     /**
-     * @param double $value
+     * @param float  $value
+     * @param string $message
      *
      * @return bool
      */
-    public static function isNegative($value)
+    public static function isNegative($value, $message = '')
     {
         settype($value, 'int');
 
@@ -84,15 +89,17 @@ class IntegerAssertions
     }
 
     /**
-     * @param integer $value
-     * @param integer $min
-     * @param integer $max
-     * @param bool    $inclusive
+     * @param int    $value
+     * @param int    $min
+     * @param int    $max
+     * @param bool   $inclusive
+     * @param string $message
      *
      * @throws \InvalidArgumentException
+     *
      * @return bool
      */
-    public static function isBetween($value, $min, $max, $inclusive = false)
+    public static function isBetween($value, $min, $max, $inclusive = false, $message = '')
     {
         settype($value, 'int');
         settype($min, 'int');
@@ -110,11 +117,12 @@ class IntegerAssertions
     }
 
     /**
-     * @param int $value
+     * @param int    $value
+     * @param string $message
      *
      * @return bool
      */
-    public static function isOdd($value)
+    public static function isOdd($value, $message = '')
     {
         settype($value, 'int');
 
@@ -122,11 +130,12 @@ class IntegerAssertions
     }
 
     /**
-     * @param int $value
+     * @param int    $value
+     * @param string $message
      *
      * @return bool
      */
-    public static function isEven($value)
+    public static function isEven($value, $message = '')
     {
         settype($value, 'int');
 
@@ -134,12 +143,13 @@ class IntegerAssertions
     }
 
     /**
-     * @param int $value
-     * @param int $multiple
+     * @param int    $value
+     * @param int    $multiple
+     * @param string $message
      *
      * @return bool
      */
-    public static function isMultiple($value, $multiple)
+    public static function isMultiple($value, $multiple, $message = '')
     {
         settype($value, 'int');
         settype($multiple, 'int');

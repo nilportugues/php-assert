@@ -1,17 +1,16 @@
 <?php
+
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 9/24/14
- * Time: 1:12 PM
+ * Time: 1:12 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+namespace NilPortugues\Assert\Assertions;
 
-namespace NilPortugues\Assertions;
-
-
-use NilPortugues\Assertions\Exceptions\FileUploadException;
+use NilPortugues\Assert\Exceptions\FileUploadException;
 
 class FileUploadAssertions
 {
@@ -19,24 +18,25 @@ class FileUploadAssertions
      * @var array
      */
     private static $byte = [
-        'K'  => 1000,
+        'K' => 1000,
         'KB' => 1000,
-        'M'  => 1000000,
+        'M' => 1000000,
         'MB' => 1000000,
-        'G'  => 1000000000,
+        'G' => 1000000000,
         'GB' => 1000000000,
-        'T'  => 1000000000000,
+        'T' => 1000000000000,
         'TB' => 1000000000000,
     ];
 
     /**
-     * Validates if the given data is a file that was uploaded
+     * Validates if the given data is a file that was uploaded.
      *
      * @param string $uploadName
+     * @param string $message
      *
      * @return bool
      */
-    public static function isUploaded($uploadName)
+    public static function isUploaded($uploadName, $message = '')
     {
         return array_key_exists($uploadName, $_FILES);
     }
@@ -46,13 +46,13 @@ class FileUploadAssertions
      */
     private static function getMaxServerFileSize()
     {
-        $maxFileSize     = min(ini_get('post_max_size'), ini_get('upload_max_filesize'));
+        $maxFileSize = min(ini_get('post_max_size'), ini_get('upload_max_filesize'));
         $maxFileSizeUnit = preg_replace('/\d/', '', $maxFileSize);
 
         $finalMaxFileSize = 0;
         if (array_key_exists(strtoupper($maxFileSizeUnit), self::$byte)) {
-            $multiplier       = self::$byte[$maxFileSizeUnit];
-            $finalMaxFileSize = preg_replace("/[^0-9,.]/", "", $maxFileSize);
+            $multiplier = self::$byte[$maxFileSizeUnit];
+            $finalMaxFileSize = preg_replace('/[^0-9,.]/', '', $maxFileSize);
             $finalMaxFileSize = $finalMaxFileSize * $multiplier;
         }
 
@@ -60,16 +60,18 @@ class FileUploadAssertions
     }
 
     /**
-     * @param string  $uploadName
+     * @param string $uploadName
      * @param string $minSize
      * @param string $maxSize
-     * @param string  $format
-     * @param bool    $inclusive
+     * @param string $format
+     * @param bool   $inclusive
+     * @param string $message
      *
      * @return bool
+     *
      * @throws FileUploadException
      */
-    public static function isBetweenFileSize($uploadName, $minSize, $maxSize, $format = 'B', $inclusive = false)
+    public static function isBetweenFileSize($uploadName, $minSize, $maxSize, $format = 'B', $inclusive = false, $message = '')
     {
         $multiplier = 1;
         if (array_key_exists(strtoupper($format), self::$byte)) {
@@ -103,10 +105,11 @@ class FileUploadAssertions
      * @param string $uploadName
      * @param $size
      * @param $maxSize
+     * @param string $message
      *
      * @throws FileUploadException
      */
-    private static function checkIfMaximumUploadFileSizeHasBeenExceeded($uploadName, $size, $maxSize)
+    private static function checkIfMaximumUploadFileSizeHasBeenExceeded($uploadName, $size, $maxSize, $message = '')
     {
         if ($size < $maxSize) {
             throw new FileUploadException($uploadName);
@@ -115,10 +118,11 @@ class FileUploadAssertions
 
     /**
      * @param $filePath
+     * @param string $message
      *
      * @return string
      */
-    private static function getMimeType($filePath)
+    private static function getMimeType($filePath, $message = '')
     {
         $currentErrorReporting = error_reporting();
         error_reporting(0);
@@ -137,10 +141,11 @@ class FileUploadAssertions
     /**
      * @param string   $uploadName
      * @param string[] $allowedTypes
+     * @param string   $message
      *
      * @return bool
      */
-    public static function isMimeType($uploadName, array $allowedTypes)
+    public static function isMimeType($uploadName, array $allowedTypes, $message = '')
     {
         if (isset($_FILES[$uploadName]['tmp_name']) && is_array($_FILES[$uploadName]['tmp_name'])) {
             $isValid = true;
@@ -161,12 +166,13 @@ class FileUploadAssertions
     }
 
     /**
-     * @param string            $uploadName
-     * @param AbstractValidator $validator
+     * @param string   $uploadName
+     * @param callable $validator
+     * @param string   $message
      *
      * @return bool
      */
-    public static function hasFileNameFormat($uploadName, AbstractValidator $validator)
+    public static function hasFileNameFormat($uploadName, callable $validator, $message = '')
     {
         if (isset($_FILES[$uploadName]['name']) && is_array($_FILES[$uploadName]['name'])) {
             $isValid = true;
@@ -183,10 +189,11 @@ class FileUploadAssertions
     /**
      * @param string $uploadName
      * @param string $uploadDir
+     * @param string $message
      *
      * @return bool
      */
-    public static function hasValidUploadDirectory($uploadName, $uploadDir)
+    public static function hasValidUploadDirectory($uploadName, $uploadDir, $message = '')
     {
         if (!isset($_FILES[$uploadName]['name'])) {
             return false;
@@ -200,10 +207,11 @@ class FileUploadAssertions
     /**
      * @param string $uploadName
      * @param string $uploadDir
+     * @param string $message
      *
      * @return bool
      */
-    public static function notOverwritingExistingFile($uploadName, $uploadDir)
+    public static function notOverwritingExistingFile($uploadName, $uploadDir, $message = '')
     {
         if (isset($_FILES[$uploadName]['name']) && is_array($_FILES[$uploadName]['name'])) {
             $isValid = true;
@@ -222,12 +230,13 @@ class FileUploadAssertions
     }
 
     /**
-     * @param string  $uploadName
+     * @param string            $uploadName
      * @param IntegerAssertions $size
+     * @param string            $message
      *
      * @return bool
      */
-    public static function hasLength($uploadName, $size)
+    public static function hasLength($uploadName, $size, $message = '')
     {
         settype($size, 'int');
 
@@ -240,10 +249,11 @@ class FileUploadAssertions
 
     /**
      * @param string $uploadName
+     * @param string $message
      *
      * @return bool
      */
-    public static function isImage($uploadName)
+    public static function isImage($uploadName, $message = '')
     {
         return self::isMimeType($uploadName, ['image/gif', 'image/jpeg', 'image/png']);
     }

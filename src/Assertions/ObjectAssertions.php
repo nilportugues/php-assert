@@ -1,24 +1,24 @@
 <?php
+
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 9/16/14
- * Time: 10:19 PM
+ * Time: 10:19 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-
-namespace NilPortugues\Assertions;
-
+namespace NilPortugues\Assert\Assertions;
 
 class ObjectAssertions
 {
     /**
      * @param $value
+     * @param string $message
      *
      * @return bool
      */
-    public static function isObject($value)
+    public static function isObject($value, $message = '')
     {
         return is_object($value);
     }
@@ -26,75 +26,82 @@ class ObjectAssertions
     /**
      * @param mixed  $value
      * @param string $instanceOf
+     * @param string $message
      *
      * @return bool
      */
-    public static function isInstanceOf($value, $instanceOf)
+    public static function isInstanceOf($value, $instanceOf, $message = '')
     {
         return $value instanceof $instanceOf;
     }
 
     /**
-     * @param \Tests\NilPortugues\Resources\Dummy $value
-     * @param string                                        $property
+     * @param $value
+     * @param $property
+     * @param string $message
      *
      * @return bool
      */
-    public static function hasProperty($value, $property)
+    public static function hasProperty($value, $property, $message = '')
     {
         return is_object($value) && property_exists(get_class($value), $property);
     }
 
     /**
-     * @param \Tests\NilPortugues\Resources\Dummy $value
-     * @param string                                        $method
+     * @param $value
+     * @param $method
+     * @param string $message
      *
      * @return bool
      */
-    public static function hasMethod($value, $method)
+    public static function hasMethod($value, $method, $message = '')
     {
         return is_object($value) && method_exists(get_class($value), $method);
     }
 
     /**
      * @param $value
+     * @param string $message
      *
      * @return bool
      */
-    public static function hasParentClass($value)
+    public static function hasParentClass($value, $message = '')
     {
         return is_object($value) && get_parent_class($value) !== false;
     }
 
     /**
-     * @param \Tests\NilPortugues\Resources\Dummy $value
-     * @param string                                        $parentClass
+     * @param $value
+     * @param $parentClass
+     * @param string $message
      *
      * @return bool
      */
-    public static function isChildOf($value, $parentClass)
+    public static function isChildOf($value, $parentClass, $message = '')
     {
         return is_object($value) && get_parent_class($value) === $parentClass;
     }
 
     /**
-     * @param \Tests\NilPortugues\Resources\Dummy $value
-     * @param string                                        $inheritsClass
+     * @param $value
+     * @param $inheritsClass
+     * @param string $message
      *
      * @return bool
      */
-    public static function inheritsFrom($value, $inheritsClass)
+    public static function inheritsFrom($value, $inheritsClass, $message = '')
     {
         return is_object($value) && is_subclass_of($value, $inheritsClass);
     }
 
     /**
-     * @param \Tests\NilPortugues\Resources\Dummy $value
-     * @param string                                        $interface
+     * @param $value
+     * @param $interface
+     * @param string $message
      *
      * @return bool
      */
-    public static function hasInterface($value, $interface)
+    public static function hasInterface($value, $interface, $message = '')
     {
         return is_object($value) && in_array($interface, class_implements($value));
     }
