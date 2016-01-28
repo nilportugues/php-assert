@@ -203,6 +203,13 @@ class Assert
         'Generic' => '\NilPortugues\Assert\Assertions\GenericAssertions',
     ];
 
+    private static $filterByType = [
+        'integer' => ['Integer', 'Generic', 'String'],
+        'double' => ['Float', 'Generic', 'String'],
+        'string' => ['String', 'Generic'],
+        'object' => ['Object', 'DateTime', 'Generic'],
+    ];
+
     /**
      * @var array
      */
@@ -315,7 +322,8 @@ class Assert
         $error = false;
         $message = '';
 
-        foreach (self::$methods[$method] as $className) {
+        $classNames = array_intersect(self::$methods[$method], self::$filterByType[gettype($args[0])]);
+        foreach ($classNames as $className) {
             try {
                 call_user_func_array(self::$classMap[$className].'::'.$method, $args);
             } catch (AssertionException $e) {

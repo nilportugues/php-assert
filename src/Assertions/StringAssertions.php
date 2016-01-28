@@ -105,8 +105,8 @@ class StringAssertions
      */
     public static function isBetween($value, $min, $max, $inclusive = false, $message = '')
     {
-        settype($min, 'int');
-        settype($max, 'int');
+        $min = (int) $min;
+        $max = (int) $max;
         settype($inclusive, 'bool');
 
         $length = mb_strlen($value, mb_detect_encoding($value));
@@ -116,16 +116,14 @@ class StringAssertions
         }
 
         if (false === $inclusive) {
-            if (false === $min < $length && $length < $max) {
+            if (false === ($min < $length && $length < $max)) {
                 throw new AssertionException(
                     ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $min, $max)
                 );
             }
-
-            return;
         }
 
-        if (false === $min <= $length && $length <= $max) {
+        if (false === ($min <= $length && $length <= $max)) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $min, $max)
             );
@@ -191,8 +189,6 @@ class StringAssertions
                     ($message) ? $message : self::ASSERT_CONTAINS
                 );
             }
-
-            return;
         }
 
         if (false === mb_strpos($value, $contains, 0, mb_detect_encoding($value))) {
@@ -244,21 +240,13 @@ class StringAssertions
     {
         $enc = mb_detect_encoding($value);
 
-        if (false === $identical) {
-            if (false === (mb_strripos($value, $contains, -1, $enc) === (mb_strlen($value, $enc) - mb_strlen($contains,
-                            $enc)))
-            ) {
-                throw new AssertionException(
-                    ($message) ? $message : sprintf(self::ASSERT_ENDS_WITH, $contains)
-                );
-            }
-
-            return;
+        if (false === $identical && (mb_strripos($value, $contains, -1, $enc) !== (mb_strlen($value, $enc) - mb_strlen($contains, $enc)))) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_ENDS_WITH, $contains)
+            );
         }
 
-        if (false === (mb_strrpos($value, $contains, 0, $enc) === (mb_strlen($value, $enc) - mb_strlen($contains,
-                        $enc)))
-        ) {
+        if (mb_strrpos($value, $contains, 0, $enc) !== (mb_strlen($value, $enc) - mb_strlen($contains, $enc))) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_ENDS_WITH, $contains)
             );
@@ -277,19 +265,15 @@ class StringAssertions
      */
     public static function equals($value, $comparedValue, $identical = false, $message = '')
     {
-        if (false === $identical) {
-            if ($value != $comparedValue) {
-                throw new AssertionException(
-                    ($message) ? $message : sprintf(self::ASSERT_EQUALS, $value, '')
-                );
-            }
-
-            return;
-        }
-
-        if ($value !== $comparedValue) {
+        if ($identical && ($value !== $comparedValue)) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_EQUALS, $value, ' strictly')
+            );
+        }
+
+        if ($value != $comparedValue) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_EQUALS, $value, '')
             );
         }
     }
@@ -304,20 +288,15 @@ class StringAssertions
      */
     public static function in($value, $haystack, $identical = false, $message = '')
     {
-        $haystack = (string) $haystack;
         $enc = mb_detect_encoding($value);
 
-        if (false === $identical) {
-            if (false === (false !== mb_stripos($haystack, $value, 0, $enc))) {
-                throw new AssertionException(
-                    ($message) ? $message : sprintf(self::ASSERT_IN, $value)
-                );
-            }
-
-            return;
+        if ($identical && (!is_string($value) || false === mb_strpos($haystack, $value, 0, $enc))) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IN, $value)
+            );
         }
 
-        if (false === (false !== mb_strpos($haystack, $value, 0, $enc))) {
+        if (false === mb_stripos($haystack, (string) $value, 0, $enc)) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_IN, $value)
             );
@@ -495,17 +474,13 @@ class StringAssertions
     {
         $enc = mb_detect_encoding($value);
 
-        if (false === $identical) {
-            if (false === (0 === mb_stripos($value, $contains, 0, $enc))) {
-                throw new AssertionException(
-                    ($message) ? $message : sprintf(self::ASSERT_STARTS_WITH, $contains)
-                );
-            }
-
-            return;
+        if (false === $identical && 0 !== mb_stripos($value, $contains, 0, $enc)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_STARTS_WITH, $contains)
+            );
         }
 
-        if (false === (0 === mb_strpos($value, $contains, 0, $enc))) {
+        if (0 !== mb_strpos($value, $contains, 0, $enc)) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_STARTS_WITH, $contains)
             );
@@ -597,7 +572,6 @@ class StringAssertions
      */
     private static function hasStringSubset($value, $amount, $regex)
     {
-        $isInvalid = true;
         settype($value, 'string');
 
         $minMatches = 1;
@@ -615,11 +589,11 @@ class StringAssertions
             }
 
             if ($counter === $minMatches) {
-                $isInvalid = true;
+                return true;
             }
         }
 
-        return $isInvalid;
+        return false;
     }
 
     /**
@@ -663,7 +637,7 @@ class StringAssertions
      */
     public static function hasSpecialCharacters($value, $amount = null, $message = '')
     {
-        if (false === self::hasStringSubset($value, $amount, '/[^a-zA-Z\d\s]/')) {
+        if (!self::hasStringSubset($value, $amount, '/[^a-zA-Z\d\s]/')) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_HAS_SPECIAL_CHARACTERS, (null === $amount) ? 1 : $amount)
             );
