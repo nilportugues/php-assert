@@ -24,7 +24,7 @@ class StringAssertions
     const ASSERT_IS_CONTROL_CHARACTERS = 'Value may only have control characters.';
     const ASSERT_IS_DIGIT = 'Value must be all digits.';
     const ASSERT_ENDS_WITH = 'Value does not end with %S';
-    const ASSERT_EQUALS = 'Value and %s must match.';
+    const ASSERT_EQUALS = 'Value must match %s%s.';
     const ASSERT_IN = 'The selected %s is invalid.';
     const ASSERT_HAS_GRAPHICAL_CHARS_ONLY = 'Value may only have graphical characters.';
     const ASSERT_HAS_LENGTH = 'Value must be %s characters.';
@@ -121,6 +121,8 @@ class StringAssertions
                     ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $min, $max)
                 );
             }
+
+            return;
         }
 
         if (false === $min <= $length && $length <= $max) {
@@ -184,14 +186,16 @@ class StringAssertions
     public static function contains($value, $contains, $identical = false, $message = '')
     {
         if (false === $identical) {
-            if (false === (false !== mb_stripos($value, $contains, 0, mb_detect_encoding($value)))) {
+            if (false === mb_stripos($value, $contains, 0, mb_detect_encoding($value))) {
                 throw new AssertionException(
                     ($message) ? $message : self::ASSERT_CONTAINS
                 );
             }
+
+            return;
         }
 
-        if (false === (false !== mb_strpos($value, $contains, 0, mb_detect_encoding($value)))) {
+        if (false === mb_strpos($value, $contains, 0, mb_detect_encoding($value))) {
             throw new AssertionException(
                 ($message) ? $message : self::ASSERT_CONTAINS
             );
@@ -248,6 +252,8 @@ class StringAssertions
                     ($message) ? $message : sprintf(self::ASSERT_ENDS_WITH, $contains)
                 );
             }
+
+            return;
         }
 
         if (false === (mb_strrpos($value, $contains, 0, $enc) === (mb_strlen($value, $enc) - mb_strlen($contains,
@@ -272,16 +278,18 @@ class StringAssertions
     public static function equals($value, $comparedValue, $identical = false, $message = '')
     {
         if (false === $identical) {
-            if (false === ($value == $comparedValue)) {
+            if ($value != $comparedValue) {
                 throw new AssertionException(
-                    ($message) ? $message : sprintf(self::ASSERT_EQUALS, $value)
+                    ($message) ? $message : sprintf(self::ASSERT_EQUALS, $value, '')
                 );
             }
+
+            return;
         }
 
         if ($value !== $comparedValue) {
             throw new AssertionException(
-                ($message) ? $message : sprintf(self::ASSERT_EQUALS, $value)
+                ($message) ? $message : sprintf(self::ASSERT_EQUALS, $value, ' strictly')
             );
         }
     }
@@ -305,6 +313,8 @@ class StringAssertions
                     ($message) ? $message : sprintf(self::ASSERT_IN, $value)
                 );
             }
+
+            return;
         }
 
         if (false === (false !== mb_strpos($haystack, $value, 0, $enc))) {
@@ -491,6 +501,8 @@ class StringAssertions
                     ($message) ? $message : sprintf(self::ASSERT_STARTS_WITH, $contains)
                 );
             }
+
+            return;
         }
 
         if (false === (0 === mb_strpos($value, $contains, 0, $enc))) {

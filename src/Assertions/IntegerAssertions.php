@@ -152,6 +152,8 @@ class IntegerAssertions
                     ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $min, $max)
                 );
             }
+
+            return;
         }
 
         if (false === (($value >= $min) && ($value <= $max))) {

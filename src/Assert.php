@@ -193,6 +193,7 @@ class Assert
      * @var array
      */
     private static $classMap = [
+        'Collection' => '\NilPortugues\Assert\Assertions\CollectionAssertions',
         'String' => '\NilPortugues\Assert\Assertions\StringAssertions',
         'Object' => '\NilPortugues\Assert\Assertions\ObjectAssertions',
         'Integer' => '\NilPortugues\Assert\Assertions\IntegerAssertions',

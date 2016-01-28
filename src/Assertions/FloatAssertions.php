@@ -152,6 +152,8 @@ class FloatAssertions
                     ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $min, $max)
                 );
             }
+
+            return;
         }
 
         if (false === (($min <= $value) && ($value <= $max))) {
