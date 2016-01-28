@@ -15,7 +15,7 @@ try {
     Assert::isUppercase('THIS IS GREAT');
     Assert::isNight(new \DateTime('now'));
     
-} (Exception $e) {
+} catch (Exception $e) {
     echo 'Did not meet the requirements, too bad!';
 }
 ```
