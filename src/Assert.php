@@ -206,7 +206,7 @@ class Assert
     private static $filterByType = [
         'integer' => ['Integer', 'Generic', 'String'],
         'double' => ['Float', 'Generic', 'String'],
-        'string' => ['String', 'Generic'],
+        'string' => ['String', 'DateTime', 'Generic'],
         'object' => ['Object', 'DateTime', 'Generic'],
     ];
 

@@ -92,10 +92,18 @@ class DateTimeAssertions
         $limit = self::convertToDateTime($limit);
 
         if (false === $inclusive) {
-            return strtotime($value->format('Y-m-d H:i:s')) > strtotime($limit->format('Y-m-d H:i:s'));
+            if (!(strtotime($value->format('Y-m-d H:i:s')) > strtotime($limit->format('Y-m-d H:i:s')))) {
+                throw new AssertionException(
+                    ($message) ? $message : self::ASSERT_IS_EVENING
+                );
+            }
         }
 
-        return strtotime($value->format('Y-m-d H:i:s')) >= strtotime($limit->format('Y-m-d H:i:s'));
+        if (!(strtotime($value->format('Y-m-d H:i:s')) >= strtotime($limit->format('Y-m-d H:i:s')))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -114,10 +122,18 @@ class DateTimeAssertions
         $limit = self::convertToDateTime($limit);
 
         if (false === $inclusive) {
-            return strtotime($value->format('Y-m-d H:i:s')) < strtotime($limit->format('Y-m-d H:i:s'));
+            if (!(strtotime($value->format('Y-m-d H:i:s')) < strtotime($limit->format('Y-m-d H:i:s')))) {
+                throw new AssertionException(
+                    ($message) ? $message : self::ASSERT_IS_EVENING
+                );
+            }
         }
 
-        return strtotime($value->format('Y-m-d H:i:s')) <= strtotime($limit->format('Y-m-d H:i:s'));
+        if (!(strtotime($value->format('Y-m-d H:i:s')) <= strtotime($limit->format('Y-m-d H:i:s')))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -134,10 +150,18 @@ class DateTimeAssertions
     public static function isBetween($value, $minDate, $maxDate, $inclusive = false, $message = '')
     {
         if (false === $inclusive) {
-            return (self::isAfter($value, $minDate, false) && self::isBefore($value, $maxDate, false));
+            if (!(self::isAfter($value, $minDate, false) && self::isBefore($value, $maxDate, false))) {
+                throw new AssertionException(
+                    ($message) ? $message : self::ASSERT_IS_EVENING
+                );
+            }
         }
 
-        return (self::isAfter($value, $minDate, true) && self::isBefore($value, $maxDate, true));
+        if (!(self::isAfter($value, $minDate, true) && self::isBefore($value, $maxDate, true))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -150,7 +174,11 @@ class DateTimeAssertions
     {
         $value = self::convertToDateTime($value);
 
-        return '0' == $value->format('w') || '6' == $value->format('w');
+        if (!('0' == $value->format('w') || '6' == $value->format('w'))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -161,7 +189,11 @@ class DateTimeAssertions
      */
     public static function isWeekday($value, $message = '')
     {
-        return !self::isWeekend($value);
+        if (self::isWeekend($value)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -174,7 +206,11 @@ class DateTimeAssertions
     {
         $value = self::convertToDateTime($value);
 
-        return '1' == $value->format('w');
+        if (!('1' == $value->format('w'))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -187,7 +223,11 @@ class DateTimeAssertions
     {
         $value = self::convertToDateTime($value);
 
-        return '2' == $value->format('w');
+        if (!('2' == $value->format('w'))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -200,7 +240,11 @@ class DateTimeAssertions
     {
         $value = self::convertToDateTime($value);
 
-        return '3' == $value->format('w');
+        if (!('3' == $value->format('w'))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -213,7 +257,11 @@ class DateTimeAssertions
     {
         $value = self::convertToDateTime($value);
 
-        return '4' == $value->format('w');
+        if (!('4' == $value->format('w'))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -226,7 +274,11 @@ class DateTimeAssertions
     {
         $value = self::convertToDateTime($value);
 
-        return '5' == $value->format('w');
+        if (!('5' == $value->format('w'))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -239,7 +291,11 @@ class DateTimeAssertions
     {
         $value = self::convertToDateTime($value);
 
-        return '6' == $value->format('w');
+        if (!('6' == $value->format('w'))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -252,7 +308,11 @@ class DateTimeAssertions
     {
         $value = self::convertToDateTime($value);
 
-        return '0' == $value->format('w');
+        if (!('0' == $value->format('w'))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -267,7 +327,11 @@ class DateTimeAssertions
 
         $date = new DateTime('now');
 
-        return $date->format('Y-m-d') === $value->format('Y-m-d');
+        if (!($date->format('Y-m-d') === $value->format('Y-m-d'))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -282,7 +346,11 @@ class DateTimeAssertions
 
         $date = new DateTime('now - 1 day');
 
-        return $date->format('Y-m-d') === $value->format('Y-m-d');
+        if (!($date->format('Y-m-d') === $value->format('Y-m-d'))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -297,7 +365,11 @@ class DateTimeAssertions
 
         $date = new DateTime('now + 1 day');
 
-        return $date->format('Y-m-d') === $value->format('Y-m-d');
+        if (!($date->format('Y-m-d') === $value->format('Y-m-d'))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -313,7 +385,11 @@ class DateTimeAssertions
     {
         $value = self::convertToDateTime($value);
 
-        return '1' == $value->format('L');
+        if (!(('1' == $value->format('L')))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -327,7 +403,11 @@ class DateTimeAssertions
         $value = self::convertToDateTime($value);
         $date = strtotime($value->format('H:i:s'));
 
-        return $date >= strtotime($value->format('06:00:00')) && $date <= strtotime($value->format('11:59:59'));
+        if (!($date >= strtotime($value->format('06:00:00')) && $date <= strtotime($value->format('11:59:59')))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -341,7 +421,11 @@ class DateTimeAssertions
         $value = self::convertToDateTime($value);
         $date = strtotime($value->format('H:i:s'));
 
-        return $date >= strtotime($value->format('12:00:00')) && $date <= strtotime($value->format('17:59:59'));
+        if (!($date >= strtotime($value->format('12:00:00')) && $date <= strtotime($value->format('17:59:59')))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
@@ -355,11 +439,15 @@ class DateTimeAssertions
         $value = self::convertToDateTime($value);
         $date = strtotime($value->format('H:i:s'));
 
-        return $date >= strtotime($value->format('18:00:00')) && $date <= strtotime($value->format('23:59:59'));
+        if (!($date >= strtotime($value->format('18:00:00')) && $date <= strtotime($value->format('23:59:59')))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 
     /**
-     * @param $value
+     * @param        $value
      * @param string $message
      *
      * @return AssertionException
@@ -369,6 +457,10 @@ class DateTimeAssertions
         $value = self::convertToDateTime($value);
         $date = strtotime($value->format('H:i:s'));
 
-        return $date >= strtotime($value->format('00:00:00')) && $date <= strtotime($value->format('05:59:59'));
+        if (!($date >= strtotime($value->format('00:00:00')) && $date <= strtotime($value->format('05:59:59')))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
+        }
     }
 }
