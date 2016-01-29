@@ -29,7 +29,7 @@ class IntegerAssertions
      * @param $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isInteger($value, $message = '')
     {
@@ -44,7 +44,7 @@ class IntegerAssertions
      * @param int    $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isNotZero($value, $message = '')
     {
@@ -61,7 +61,7 @@ class IntegerAssertions
      * @param int    $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isPositiveOrZero($value, $message = '')
     {
@@ -78,7 +78,7 @@ class IntegerAssertions
      * @param int    $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isPositive($value, $message = '')
     {
@@ -95,7 +95,7 @@ class IntegerAssertions
      * @param int    $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isNegativeOrZero($value, $message = '')
     {
@@ -112,7 +112,7 @@ class IntegerAssertions
      * @param int    $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isNegative($value, $message = '')
     {
@@ -132,9 +132,7 @@ class IntegerAssertions
      * @param bool   $inclusive
      * @param string $message
      *
-     * @throws \InvalidArgumentException
-     *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isBetween($value, $min, $max, $inclusive = false, $message = '')
     {
@@ -143,7 +141,7 @@ class IntegerAssertions
         settype($max, 'int');
 
         if ($min > $max) {
-            throw new \InvalidArgumentException(sprintf('%s cannot be less than %s for validation', $min, $max));
+            throw new AssertionException(sprintf('%s cannot be less than %s for validation', $min, $max));
         }
 
         if (false === $inclusive) {
@@ -167,7 +165,7 @@ class IntegerAssertions
      * @param int    $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isOdd($value, $message = '')
     {
@@ -184,7 +182,7 @@ class IntegerAssertions
      * @param int    $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isEven($value, $message = '')
     {
@@ -202,7 +200,7 @@ class IntegerAssertions
      * @param int    $multiple
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isMultiple($value, $multiple, $message = '')
     {
