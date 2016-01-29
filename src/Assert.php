@@ -46,6 +46,7 @@ use RuntimeException;
  * @method static void isAlphanumeric($value, $message = '')
  * @method static void isArray($value, $message = '')
  * @method static void isBefore($value, $limit, $inclusive = false, $message = '')
+ * @method static void isDateRange($value, $min, $max, $inclusive = false, $message = '')
  * @method static void isBetween($value, $min, $max, $inclusive = false, $message = '')
  * @method static void isBetweenFileSize($uploadName, $minSize, $maxSize, $format = 'B', $inclusive = false, $message = '')
  * @method static void isCharset($value, $charset, $message = '')
@@ -207,7 +208,7 @@ class Assert
         'integer' => ['Integer', 'Generic', 'String'],
         'double' => ['Float', 'Generic', 'String'],
         'string' => ['String', 'DateTime', 'Generic'],
-        'object' => ['Object', 'DateTime', 'Generic'],
+        'object' => ['DateTime', 'Object',  'Generic'],
     ];
 
     /**
@@ -224,7 +225,8 @@ class Assert
         'isString' => ['String'],
         'isAlphanumeric' => ['String'],
         'isAlpha' => ['String'],
-        'isBetween' => ['String', 'Integer', 'Float', 'DateTime'],
+        'isBetween' => ['DateTime', 'String', 'Integer', 'Float'],
+        'isDateRange' => ['DateTime'],
         'isCharset' => ['String'],
         'isAllConsonants' => ['String'],
         'contains' => ['String', 'Collection'],
@@ -322,9 +324,13 @@ class Assert
         $error = false;
         $message = '';
 
-        $classNames = array_intersect(self::$methods[$method], self::$filterByType[gettype($args[0])]);
+        $classNames = self::bestAssertionMethod($method, $args);
+
         foreach ($classNames as $className) {
             try {
+                //print_r(self::$classMap[$className].'::'.$method);
+                //echo PHP_EOL;
+
                 call_user_func_array(self::$classMap[$className].'::'.$method, $args);
             } catch (AssertionException $e) {
                 $error = true;
@@ -335,5 +341,22 @@ class Assert
         if ($error) {
             throw new Exception($message);
         }
+    }
+
+    /**
+     * @param string $method
+     * @param array  $args
+     *
+     * @return array
+     */
+    private static function bestAssertionMethod($method, array &$args)
+    {
+        $classNames = array_intersect(self::$filterByType[gettype($args[0])], self::$methods[$method]);
+
+        if (count($classNames) > 1) {
+            $classNames = [array_shift($classNames)];
+        }
+
+        return $classNames;
     }
 }

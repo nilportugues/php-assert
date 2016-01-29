@@ -82,7 +82,7 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
         Assert::isAfter($date2, $limit2);
     }
 
-    public function testItShouldCheckIfDateIsBetween()
+    public function testItShouldCheckIfDateisDateRange()
     {
         $date1 = '2014-01-01 00:00:00';
         $date2 = new DateTime($date1);
@@ -90,31 +90,31 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
         $minDate = '2013-01-01 00:00:00';
         $maxDate = '2015-01-01 00:00:00';
 
-        Assert::isBetween($date1, $minDate, $maxDate, false);
-        Assert::isBetween($date2, $minDate, $maxDate, false);
+        Assert::isDateRange($date1, $minDate, $maxDate, false);
+        Assert::isDateRange($date2, $minDate, $maxDate, false);
 
-        Assert::isBetween($date1, $minDate, $maxDate, true);
-        Assert::isBetween($date2, $minDate, $maxDate, true);
+        Assert::isDateRange($date1, $minDate, $maxDate, true);
+        Assert::isDateRange($date2, $minDate, $maxDate, true);
     }
 
-    public function testItShouldCheckIfDateIsBetweenThrowsException1()
+    public function testItShouldCheckIfDateisDateRangeThrowsException1()
     {
         $date1 = '2014-01-01 00:00:00';
         $minDate = '2013-12-01 00:00:00';
         $maxDate = '2013-12-30 00:00:00';
 
         $this->setExpectedException(Exception::class);
-        Assert::isBetween($date1, $minDate, $maxDate, false);
+        Assert::isDateRange($date1, $minDate, $maxDate, false);
     }
 
-    public function testItShouldCheckIfDateIsBetweenThrowsException2()
+    public function testItShouldCheckIfDateisDateRangeThrowsException2()
     {
         $date1 = '2014-01-01 00:00:00';
         $minDate = '2013-12-01 00:00:00';
         $maxDate = '2013-12-30 00:00:00';
 
         $this->setExpectedException(Exception::class);
-        Assert::isBetween($date1, $minDate, $maxDate, true);
+        Assert::isDateRange($date1, $minDate, $maxDate, true);
     }
 
     public function testItShouldCheckIfIsMonday()

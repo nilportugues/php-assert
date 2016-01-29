@@ -66,10 +66,22 @@ class AssertStringTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue(true);
     }
 
-    public function testIsBetweenWillThrowException()
+    public function testIsBetweenWillThrowException1()
     {
         $this->setExpectedException(Exception::class);
         Assert::isBetween('Nil', 12, 4, false);
+    }
+
+    public function testIsBetweenWillThrowException2()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isBetween('Nil', 5, 8, false);
+    }
+
+    public function testIsBetweenWillThrowException3()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isBetween('Nil', 5, 8, true);
     }
 
     public function testItShouldCheckStringIsCharset()
@@ -129,7 +141,7 @@ class AssertStringTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(Exception::class);
         $value = 'AAAAAAAaa1aA';
-        $contains = 1;
+        $contains = 2;
         $identical = false;
         Assert::contains($value, $contains, $identical);
     }
@@ -183,7 +195,7 @@ class AssertStringTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(Exception::class);
         $value = 'AAAAAAAaaaA1';
-        $contains = '1';
+        $contains = '2';
         $identical = false;
         Assert::endsWith($value, $contains, $identical);
     }
@@ -192,7 +204,7 @@ class AssertStringTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(Exception::class);
         $value = 'AAAAAAAaaaA1';
-        $contains = 1;
+        $contains = 2;
         $identical = true;
         Assert::endsWith($value, $contains, $identical);
     }

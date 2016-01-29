@@ -20,7 +20,7 @@ class IntegerAssertions
     const ASSERT_IS_POSITIVE_OR_ZERO = 'Value must be a positive value or zero.';
     const ASSERT_IS_NEGATIVE = 'Value must be a negative value.';
     const ASSERT_IS_NEGATIVE_OR_ZERO = 'Value must be a negative value or zero';
-    const ASSERT_IS_BETWEEN = 'Value must be between %s and %s.';
+    const ASSERT_IS_BETWEEN = 'Integer %s must be between %s and %s.';
     const ASSERT_IS_ODD = 'Value must be divisible by 3.';
     const ASSERT_IS_EVEN = 'Value must be divisible by 2';
     const ASSERT_IS_MULTIPLE = 'Value must be multiple of %s.';
@@ -50,7 +50,7 @@ class IntegerAssertions
     {
         settype($value, 'int');
 
-        if (0 != $value) {
+        if (0 === $value) {
             throw new AssertionException(
                 ($message) ? $message : self::ASSERT_IS_NOT_ZERO
             );
@@ -144,19 +144,15 @@ class IntegerAssertions
             throw new AssertionException(sprintf('%s cannot be less than %s for validation', $min, $max));
         }
 
-        if (false === $inclusive) {
-            if (false === (($value > $min) && ($value < $max))) {
-                throw new AssertionException(
-                    ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $min, $max)
-                );
-            }
-
-            return;
+        if ($inclusive && !($value >= $min && $value <= $max)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $value, $min, $max)
+            );
         }
 
-        if (false === (($value >= $min) && ($value <= $max))) {
+        if (!$inclusive && !($value > $min && $value < $max)) {
             throw new AssertionException(
-                ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $min, $max)
+                ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $value, $min, $max)
             );
         }
     }

@@ -115,15 +115,13 @@ class StringAssertions
             throw new AssertionException(sprintf('%s cannot be less than %s for validation', $min, $max));
         }
 
-        if (false === $inclusive) {
-            if (false === ($min < $length && $length < $max)) {
-                throw new AssertionException(
-                    ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $min, $max)
-                );
-            }
+        if (!$inclusive && (false === ($min < $length && $length < $max))) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $min, $max)
+            );
         }
 
-        if (false === ($min <= $length && $length <= $max)) {
+        if ($inclusive && false === ($min <= $length && $length <= $max)) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $min, $max)
             );
@@ -240,13 +238,13 @@ class StringAssertions
     {
         $enc = mb_detect_encoding($value);
 
-        if (false === $identical && (mb_strripos($value, $contains, -1, $enc) !== (mb_strlen($value, $enc) - mb_strlen($contains, $enc)))) {
+        if (false === $identical && (false === mb_strpos($value, $contains, null, $enc))) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_ENDS_WITH, $contains)
             );
         }
 
-        if (mb_strrpos($value, $contains, 0, $enc) !== (mb_strlen($value, $enc) - mb_strlen($contains, $enc))) {
+        if ($identical && (false === mb_strpos($value, $contains, null, $enc))) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_ENDS_WITH, $contains)
             );

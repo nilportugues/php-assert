@@ -85,6 +85,10 @@ class AssertIntegerTest extends \PHPUnit_Framework_TestCase
     public function testItShouldCheckIfItIsBetween()
     {
         Assert::isBetween(3, 1, 5, false);
+    }
+
+    public function testItShouldCheckIfItIsBetweenInclusive()
+    {
         Assert::isBetween(3, 1, 3, true);
     }
 

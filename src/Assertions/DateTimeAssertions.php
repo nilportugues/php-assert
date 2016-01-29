@@ -147,17 +147,19 @@ class DateTimeAssertions
      *
      * @return AssertionException
      */
-    public static function isBetween($value, $minDate, $maxDate, $inclusive = false, $message = '')
+    public static function isDateRange($value, $minDate, $maxDate, $inclusive = false, $message = '')
     {
-        if (false === $inclusive) {
-            if (!(self::isAfter($value, $minDate, false) && self::isBefore($value, $maxDate, false))) {
-                throw new AssertionException(
-                    ($message) ? $message : self::ASSERT_IS_EVENING
-                );
-            }
+        $value = self::convertToDateTime($value);
+        $minDate = self::convertToDateTime($minDate);
+        $maxDate = self::convertToDateTime($maxDate);
+
+        if (!$inclusive && !($value > $minDate && $value < $maxDate)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_EVENING
+            );
         }
 
-        if (!(self::isAfter($value, $minDate, true) && self::isBefore($value, $maxDate, true))) {
+        if ($inclusive && !($value >= $minDate && $value <= $maxDate)) {
             throw new AssertionException(
                 ($message) ? $message : self::ASSERT_IS_EVENING
             );
