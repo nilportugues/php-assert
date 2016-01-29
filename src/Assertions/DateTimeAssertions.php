@@ -51,8 +51,13 @@ class DateTimeAssertions
             return;
         }
 
-        $date = new DateTime($value);
-        $errors = $date->getLastErrors();
+        try {
+            $date = new DateTime($value);
+            $errors = $date->getLastErrors();
+        } catch (\Exception $e) {
+            $errors['warning_count'] = 1;
+            $errors['error_count'] = 1;
+        }
 
         if (false === (0 == $errors['warning_count'] && 0 == $errors['error_count'])) {
             throw new AssertionException(
@@ -176,7 +181,7 @@ class DateTimeAssertions
     {
         $value = self::convertToDateTime($value);
 
-        if (!('0' == $value->format('w') || '6' == $value->format('w'))) {
+        if ('0' != $value->format('w') && '6' != $value->format('w')) {
             throw new AssertionException(
                 ($message) ? $message : self::ASSERT_IS_EVENING
             );
@@ -191,7 +196,9 @@ class DateTimeAssertions
      */
     public static function isWeekday($value, $message = '')
     {
-        if (self::isWeekend($value)) {
+        $value = self::convertToDateTime($value);
+
+        if ($value->format('w') == 0 || $value->format('w') == 6) {
             throw new AssertionException(
                 ($message) ? $message : self::ASSERT_IS_EVENING
             );

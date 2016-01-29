@@ -18,6 +18,13 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
         DateTimeAssertions::isDateTime($date2);
     }
 
+    public function testItShouldCheckIfDateThrowsException1()
+    {
+        $this->setExpectedException(Exception::class);
+        $date1 = '2012-13-13 00:00:00';
+        DateTimeAssertions::isDateTime($date1);
+    }
+
     public function testItShouldCheckIfDateIsBefore()
     {
         $date1 = '2012-01-01 00:00:00';
@@ -46,7 +53,7 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
         $limit2 = '2010-01-01 00:00:00';
 
         $this->setExpectedException(Exception::class);
-        Assert::isBefore($date2, $limit2);
+        Assert::isBefore($date2, $limit2, true);
     }
 
     public function testItShouldCheckIfDateIsAfter()
@@ -79,7 +86,7 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
         $limit2 = '2015-01-01 00:00:00';
 
         $this->setExpectedException(Exception::class);
-        Assert::isAfter($date2, $limit2);
+        Assert::isAfter($date2, $limit2, true);
     }
 
     public function testItShouldCheckIfDateisDateRange()
@@ -122,9 +129,21 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
         Assert::isMonday('2014-09-22');
     }
 
+    public function testItShouldCheckIfIsMondayThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isMonday('2014-09-23');
+    }
+
     public function testItShouldCheckIfIsTuesday()
     {
         Assert::isTuesday('2014-09-23');
+    }
+
+    public function testItShouldCheckIfIsTuesdayThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isTuesday('2014-09-24');
     }
 
     public function testItShouldCheckIfIsWednesday()
@@ -132,9 +151,21 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
         Assert::isWednesday('2014-09-24');
     }
 
+    public function testItShouldCheckIfIsWednesdayThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isWednesday('2014-09-25');
+    }
+
     public function testItShouldCheckIfIsThursday()
     {
         Assert::isThursday('2014-09-25');
+    }
+
+    public function testItShouldCheckIfIsThursdayThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isThursday('2014-09-26');
     }
 
     public function testItShouldCheckIfIsFriday()
@@ -142,9 +173,21 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
         Assert::isFriday('2014-09-26');
     }
 
+    public function testItShouldCheckIfIsFridayThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isFriday('2014-09-27');
+    }
+
     public function testItShouldCheckIfIsSaturday()
     {
         Assert::isSaturday('2014-09-27');
+    }
+
+    public function testItShouldCheckIfIsSaturdayThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isSaturday('2014-09-28');
     }
 
     public function testItShouldCheckIfIsSunday()
@@ -152,31 +195,61 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
         Assert::isSunday('2014-09-28');
     }
 
+    public function testItShouldCheckIfIsSundayThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isSunday('2014-09-29');
+    }
+
     public function testItShouldCheckIfIsToday()
     {
         $date = new DateTime('now');
+        Assert::isToday($date);
+    }
 
+    public function testItShouldCheckIfIsTodayThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $date = new DateTime('now -1day');
         Assert::isToday($date);
     }
 
     public function testItShouldCheckIfIsYesterday()
     {
         $date = new DateTime('now -1 day');
+        Assert::isYesterday($date);
+    }
 
+    public function testItShouldCheckIfIsYesterdayThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $date = new DateTime('now');
         Assert::isYesterday($date);
     }
 
     public function testItShouldCheckIfIsTomorrow()
     {
         $date = new DateTime('now +1 day');
+        Assert::isTomorrow($date);
+    }
 
+    public function testItShouldCheckIfIsTomorrowThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $date = new DateTime('now');
         Assert::isTomorrow($date);
     }
 
     public function testItShouldCheckIfIsLeapYear()
     {
         $date = new DateTime('2016-01-01');
+        Assert::isLeapYear($date);
+    }
 
+    public function testItShouldCheckIfIsLeapYearThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $date = new DateTime('2015-01-01');
         Assert::isLeapYear($date);
     }
 
@@ -190,9 +263,13 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function testItShouldCheckIfIsWeekday()
     {
+        Assert::isWeekday('2016-01-29');
+    }
+
+    public function testItShouldCheckIfIsWeekdayThrowsException()
+    {
         $this->setExpectedException(Exception::class);
-        Assert::isWeekday('2014-09-20');
-        Assert::isWeekday('2014-09-22');
+        Assert::isWeekday('2016-01-30');
     }
 
     public function testItShouldCheckIfIsMorning()
