@@ -98,14 +98,14 @@ class DateTimeAssertions
         if (false === $inclusive) {
             if (!(strtotime($value->format('Y-m-d H:i:s')) > strtotime($limit->format('Y-m-d H:i:s')))) {
                 throw new AssertionException(
-                    ($message) ? $message : sprintf(self::ASSERT_IS_AFTER, $limit)
+                    ($message) ? $message : sprintf(self::ASSERT_IS_AFTER, $limit->format('Y-m-d H:i:s'))
                 );
             }
         }
 
         if (!(strtotime($value->format('Y-m-d H:i:s')) >= strtotime($limit->format('Y-m-d H:i:s')))) {
             throw new AssertionException(
-                ($message) ? $message : sprintf(self::ASSERT_IS_AFTER, $limit)
+                ($message) ? $message : sprintf(self::ASSERT_IS_AFTER, $limit->format('Y-m-d H:i:s'))
             );
         }
     }
@@ -128,14 +128,14 @@ class DateTimeAssertions
         if (false === $inclusive) {
             if (!(strtotime($value->format('Y-m-d H:i:s')) < strtotime($limit->format('Y-m-d H:i:s')))) {
                 throw new AssertionException(
-                    ($message) ? $message : sprintf(self::ASSERT_IS_BEFORE, $limit)
+                    ($message) ? $message : sprintf(self::ASSERT_IS_BEFORE, $limit->format('Y-m-d H:i:s'))
                 );
             }
         }
 
         if (!(strtotime($value->format('Y-m-d H:i:s')) <= strtotime($limit->format('Y-m-d H:i:s')))) {
             throw new AssertionException(
-                ($message) ? $message : sprintf(self::ASSERT_IS_BEFORE, $limit)
+                ($message) ? $message : sprintf(self::ASSERT_IS_BEFORE, $limit->format('Y-m-d H:i:s'))
             );
         }
     }

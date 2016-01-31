@@ -10,21 +10,38 @@
  */
 namespace NilPortugues\Assert\Assertions;
 
+use Exception;
 use NilPortugues\Assert\Exceptions\AssertionException;
 
 class CollectionAssertions
 {
+    const ASSERT_IS_ARRAY = "";
+    const ASSERT_EACH = "";
+    const ASSERT_KEY_FORMAT = "";
+    const ASSERT_ENDS_WITH = "";
+    const ASSERT_CONTAINS = "";
+    const ASSERT_HAS_KEYS = "";
+    const ASSERT_HAS_LENGTH = "";
+    const ASSERT_IS_NOT_EMPTY = "";
+    const ASSERT_STARTS_WITH = "";
+
     /**
      * @param $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isArray($value, $message = '')
     {
-        return is_array($value)
+        $result = is_array($value)
         || (is_object($value) && $value instanceof \ArrayObject)
         || (is_object($value) && $value instanceof \SplFixedArray);
+
+        if (false === $result) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_ARRAY
+            );
+        }
     }
 
     /**
@@ -33,7 +50,7 @@ class CollectionAssertions
      * @param callable|null $keyValidator
      * @param string        $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function each($value, callable $valueValidator, callable $keyValidator = null, $message = '')
     {
@@ -44,7 +61,11 @@ class CollectionAssertions
             $isValid = $isValid && $valueValidator($data);
         }
 
-        return $isValid;
+        if (false === $isValid) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_EACH
+            );
+        }
     }
 
     /**
@@ -52,7 +73,7 @@ class CollectionAssertions
      * @param callable $keyValidator
      * @param string   $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function hasKeyFormat($value, callable $keyValidator, $message = '')
     {
@@ -65,13 +86,16 @@ class CollectionAssertions
         }
 
         $arrayKeys = array_keys($value);
-        $isValid = true;
 
         foreach ($arrayKeys as $key) {
-            $isValid = $isValid && $keyValidator->validate($key);
+            try {
+                $keyValidator($key);
+            } catch (Exception $e) {
+                throw new AssertionException(
+                    ($message) ? $message : self::ASSERT_KEY_FORMAT
+                );
+            }
         }
-
-        return $isValid;
     }
 
     /**
@@ -80,7 +104,7 @@ class CollectionAssertions
      * @param bool   $strict
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function endsWith($haystack, $needle, $strict = false, $message = '')
     {
@@ -88,10 +112,19 @@ class CollectionAssertions
         settype($strict, 'bool');
 
         if (false === $strict) {
-            return $last == $needle;
+            if (false === ($last == $needle)) {
+                throw new AssertionException(
+                    ($message) ? $message : self::ASSERT_ENDS_WITH
+                );
+            }
+            return;
         }
 
-        return $last === $needle;
+        if (false === ($last === $needle)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_ENDS_WITH
+            );
+        }
     }
 
     /**
@@ -100,7 +133,7 @@ class CollectionAssertions
      * @param bool   $strict
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function contains($haystack, $needle, $strict = false, $message = '')
     {
@@ -115,10 +148,19 @@ class CollectionAssertions
         settype($strict, 'bool');
 
         if (false === $strict) {
-            return in_array($needle, $haystack, false);
+            if (false === (in_array($needle, $haystack, false))) {
+                throw new AssertionException(
+                    ($message) ? $message : self::ASSERT_CONTAINS
+                );
+            }
+            return;
         }
 
-        return in_array($needle, $haystack, true);
+        if (false === (in_array($needle, $haystack, true))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_CONTAINS
+            );
+        }
     }
 
     /**
@@ -126,11 +168,15 @@ class CollectionAssertions
      * @param $keyName
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function hasKey($value, $keyName, $message = '')
     {
-        return array_key_exists($keyName, $value);
+        if (false === array_key_exists($keyName, $value)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_HAS_KEYS
+            );
+        }
     }
 
     /**
@@ -138,24 +184,32 @@ class CollectionAssertions
      * @param $length
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function hasLength($value, $length, $message = '')
     {
         settype($length, 'int');
 
-        return count($value) === $length;
+        if (false === (count($value) === $length)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_HAS_LENGTH
+            );
+        }
     }
 
     /**
      * @param $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isNotEmpty($value, $message = '')
     {
-        return count($value) > 0;
+        if (false === (count($value) > 0)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_NOT_EMPTY
+            );
+        }
     }
 
     /**
@@ -164,7 +218,7 @@ class CollectionAssertions
      * @param bool   $strict
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function startsWith($haystack, $needle, $strict = false, $message = '')
     {
@@ -172,9 +226,18 @@ class CollectionAssertions
         settype($strict, 'bool');
 
         if (false === $strict) {
-            return $first == $needle;
+            if(!$first == $needle) {
+                throw new AssertionException(
+                    ($message) ? $message : self::ASSERT_STARTS_WITH
+                );
+            }
+            return;
         }
 
-        return $first === $needle;
+        if ($first !== $needle) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_STARTS_WITH
+            );
+        }
     }
 }

@@ -205,6 +205,7 @@ class Assert
     ];
 
     private static $filterByType = [
+        'NULL' => ['Generic', 'String', 'Integer', 'Float', 'Object', 'DateTime'],
         'integer' => ['Integer', 'Generic', 'String'],
         'double' => ['Float', 'Generic', 'String'],
         'string' => ['String', 'DateTime', 'Generic'],
@@ -236,7 +237,7 @@ class Assert
         'equals' => ['String'],
         'in' => ['String'],
         'hasGraphicalCharsOnly' => ['String'],
-        'hasLength' => ['String', 'FileUpload', 'Collection'],
+        'hasLength' => ['String', 'FileUpload', 'Collection'], //********************
         'isLowercase' => ['String'],
         'notEmpty' => ['String'],
         'noWhitespace' => ['String'],
@@ -275,6 +276,7 @@ class Assert
         'isOdd' => ['Integer', 'Float'],
         'isEven' => ['Integer', 'Float'],
         'isMultiple' => ['Integer', 'Float'],
+        /*********************************************/
         'isUploaded' => ['FileUpload'],
         'isBetweenFileSize' => ['FileUpload'],
         'isMimeType' => ['FileUpload'],
@@ -282,6 +284,7 @@ class Assert
         'hasValidUploadDirectory' => ['FileUpload'],
         'notOverwritingExistingFile' => ['FileUpload'],
         'isImage' => ['FileUpload'],
+        /*********************************************/
         'isDateTime' => ['DateTime'],
         'isAfter' => ['DateTime'],
         'isBefore' => ['DateTime'],

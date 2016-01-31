@@ -37,7 +37,7 @@ class FileUploadAssertions
      *
      * @return AssertionException
      */
-    public static function isUploaded($uploadName, $message = '')
+    public static function isFileUploaded($uploadName, $message = '')
     {
         return array_key_exists($uploadName, $_FILES);
     }
@@ -72,7 +72,7 @@ class FileUploadAssertions
      *
      * @throws FileUploadException
      */
-    public static function isBetweenFileSize($uploadName, $minSize, $maxSize, $format = 'B', $inclusive = false, $message = '')
+    public static function isFileUploadedBetweenFileSize($uploadName, $minSize, $maxSize, $format = 'B', $inclusive = false, $message = '')
     {
         $multiplier = 1;
         if (array_key_exists(strtoupper($format), self::$byte)) {
@@ -146,7 +146,7 @@ class FileUploadAssertions
      *
      * @return AssertionException
      */
-    public static function isMimeType($uploadName, array $allowedTypes, $message = '')
+    public static function isFileUploadedMimeType($uploadName, array $allowedTypes, $message = '')
     {
         if (isset($_FILES[$uploadName]['tmp_name']) && is_array($_FILES[$uploadName]['tmp_name'])) {
             $isValid = true;
@@ -173,7 +173,7 @@ class FileUploadAssertions
      *
      * @return AssertionException
      */
-    public static function hasFileNameFormat($uploadName, callable $validator, $message = '')
+    public static function hasFileUploadedFileNameFormat($uploadName, callable $validator, $message = '')
     {
         if (isset($_FILES[$uploadName]['name']) && is_array($_FILES[$uploadName]['name'])) {
             $isValid = true;
@@ -194,7 +194,7 @@ class FileUploadAssertions
      *
      * @return AssertionException
      */
-    public static function hasValidUploadDirectory($uploadName, $uploadDir, $message = '')
+    public static function hasFileUploadedValidUploadDirectory($uploadName, $uploadDir, $message = '')
     {
         if (!isset($_FILES[$uploadName]['name'])) {
             return false;
@@ -212,7 +212,7 @@ class FileUploadAssertions
      *
      * @return AssertionException
      */
-    public static function notOverwritingExistingFile($uploadName, $uploadDir, $message = '')
+    public static function isFileUploadedNotOverwritingExistingFile($uploadName, $uploadDir, $message = '')
     {
         if (isset($_FILES[$uploadName]['name']) && is_array($_FILES[$uploadName]['name'])) {
             $isValid = true;
@@ -237,7 +237,7 @@ class FileUploadAssertions
      *
      * @return AssertionException
      */
-    public static function hasLength($uploadName, $size, $message = '')
+    public static function hasFileUploadedFileNameLength($uploadName, $size, $message = '')
     {
         settype($size, 'int');
 
@@ -254,7 +254,7 @@ class FileUploadAssertions
      *
      * @return AssertionException
      */
-    public static function isImage($uploadName, $message = '')
+    public static function isFileUploadedImage($uploadName, $message = '')
     {
         return self::isMimeType($uploadName, ['image/gif', 'image/jpeg', 'image/png']);
     }
