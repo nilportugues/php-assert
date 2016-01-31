@@ -47,7 +47,7 @@ class ObjectAssertions
      */
     public static function isInstanceOf($value, $instanceOf, $message = '')
     {
-        if (false === $value instanceof $instanceOf) {
+        if (false === ($value instanceof $instanceOf)) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_IS_INSTANCE_OF, $instanceOf)
             );
@@ -63,7 +63,7 @@ class ObjectAssertions
      */
     public static function hasProperty($value, $property, $message = '')
     {
-        if (false === is_object($value) && property_exists(get_class($value), $property)) {
+        if (false === (is_object($value) && property_exists(get_class($value), $property))) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_HAS_PROPERTY, gettype($value))
             );
@@ -79,7 +79,7 @@ class ObjectAssertions
      */
     public static function hasMethod($value, $method, $message = '')
     {
-        if (false === is_object($value) && method_exists(get_class($value), $method)) {
+        if (false === (is_object($value) && method_exists(get_class($value), $method))) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_HAS_METHOD, $method)
             );
@@ -94,7 +94,7 @@ class ObjectAssertions
      */
     public static function hasParentClass($value, $message = '')
     {
-        if (false === is_object($value) && get_parent_class($value) !== false) {
+        if (false === (is_object($value) && get_parent_class($value) !== false)) {
             throw new AssertionException(
                 ($message) ? $message : self::ASSERT_HAS_PARENT_CLASS
             );
@@ -110,7 +110,7 @@ class ObjectAssertions
      */
     public static function isChildOf($value, $parentClass, $message = '')
     {
-        if (false === is_object($value) && get_parent_class($value) === $parentClass) {
+        if (false === (is_object($value) && get_parent_class($value) === $parentClass)) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_IS_CHILD_OF, $parentClass)
             );
@@ -126,7 +126,7 @@ class ObjectAssertions
      */
     public static function inheritsFrom($value, $inheritsClass, $message = '')
     {
-        if (false === is_object($value) && is_subclass_of($value, $inheritsClass)) {
+        if (false === (is_object($value) && is_subclass_of($value, $inheritsClass))) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_INHERITS_FROM, $inheritsClass)
             );
@@ -142,7 +142,7 @@ class ObjectAssertions
      */
     public static function hasInterface($value, $interface, $message = '')
     {
-        if (false === is_object($value) && in_array($interface, class_implements($value))) {
+        if (false === (is_object($value) && in_array($interface, class_implements($value)))) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_HAS_INTERFACE, $interface)
             );

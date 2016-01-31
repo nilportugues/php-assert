@@ -321,9 +321,7 @@ class Assert
             throw new RuntimeException(sprintf('Method %s does not exist.', $method));
         }
 
-        $error = false;
-        $message = '';
-
+        $message = 'Method not found';
         $classNames = self::bestAssertionMethod($method, $args);
 
         foreach ($classNames as $className) {
@@ -332,15 +330,14 @@ class Assert
                 //echo PHP_EOL;
 
                 call_user_func_array(self::$classMap[$className].'::'.$method, $args);
+
+                return;
             } catch (AssertionException $e) {
-                $error = true;
                 $message = $e->getMessage();
             }
         }
 
-        if ($error) {
-            throw new Exception($message);
-        }
+        throw new Exception($message);
     }
 
     /**
