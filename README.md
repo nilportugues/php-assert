@@ -1,5 +1,8 @@
 # [WIP] Assert
 
+[![Build Status](https://travis-ci.org/nilportugues/php-assert.svg)](https://travis-ci.org/nilportugues/php-assert) [![Coverage Status](https://coveralls.io/repos/nilportugues/assert/badge.svg?branch=master)](https://coveralls.io/r/nilportugues/assert?branch=master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nilportugues/php-assert/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/nilportugues/php-assert/?branch=master) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c37360c4-7280-4e08-bff1-0f0053103003/mini.png)](https://insight.sensiolabs.com/projects/c37360c4-7280-4e08-bff1-0f0053103003) [![Latest Stable Version](https://poser.pugx.org/nilportugues/assert/v/stable)](https://packagist.org/packages/nilportugues/assert) [![Total Downloads](https://poser.pugx.org/nilportugues/assert/downloads)](https://packagist.org/packages/nilportugues/assert) [![License](https://poser.pugx.org/nilportugues/assert/license)](https://packagist.org/packages/nilportugues/assert) 
+
+
 While I know there are out there other assertion libraries I was unhappy with them, so I wrote my own.
 
 ## Usage
