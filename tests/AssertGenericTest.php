@@ -9,34 +9,34 @@ class AssertGenericTest extends \PHPUnit_Framework_TestCase
 {
     public function testItShouldCheckIfIsRequired()
     {
-        $value  = 'asdsdadds';
+        $value = 'asdsdadds';
         Assert::isRequired($value);
     }
 
     public function testItShouldCheckIfIsRequiredThrowsException1()
     {
         $this->setExpectedException(Exception::class);
-        $value  = null;
+        $value = null;
         Assert::isRequired($value);
     }
 
     public function testItShouldCheckIsNotNull()
     {
-        $value  = 'asdsdadds';
+        $value = 'asdsdadds';
         Assert::isNotNull($value);
     }
 
     public function testItShouldCheckIsNotNullThrowsException1()
     {
         $this->setExpectedException(Exception::class);
-        $value  = null;
+        $value = null;
         Assert::isNotNull($value);
     }
 
     public function testItShouldCheckIsNotNullThrowsException2()
     {
         $this->setExpectedException(Exception::class);
-        $value  = '';
+        $value = '';
         Assert::isNotNull($value);
     }
 
@@ -62,7 +62,6 @@ class AssertGenericTest extends \PHPUnit_Framework_TestCase
         Assert::lessThan(15, 10);
     }
 
-
     public function testItShouldCheckGreaterThan()
     {
         Assert::greaterThan(100, 10);
@@ -73,7 +72,6 @@ class AssertGenericTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(Exception::class);
         Assert::greaterThan(5, 10);
     }
-
 
     public function testItShouldCheckGreaterThanOrEqual()
     {

@@ -15,6 +15,22 @@ use NilPortugues\Assert\Exceptions\FileUploadException;
 
 class FileUploadAssertions
 {
+    const ASSERT_FILE_UPLOAD = 'Value has no files.';
+    const ASSERT_IS_BETWEEN = 'Value must be between :min and :max :formatBytes.';
+    const ASSERT_IS_MIME_TYPE = 'Value is not a valid file format.';
+    const ASSERT_HAS_FILE_NAME_FORMAT = 'Value file name format is not valid.';
+    const ASSERT_HAS_VALID_UPLOAD_DIRECTORY = 'Value upload directory is not valid.';
+    const ASSERT_NOT_OVERWRITING_EXISTING_FILE = 'Value upload will overwrite an existing file.';
+    const ASSERT_UPLOAD_ERR_INI_SIZE = 'Value upload exceeds the maximum file size allowed by the server.';
+    const ASSERT_UPLOAD_ERR_FORM_SIZE = 'Value upload exceeds the maximum file size specified in the form.';
+    const ASSERT_UPLOAD_ERR_PARTIAL = 'Value was only partially uploaded.';
+    const ASSERT_UPLOAD_ERR_NO_FILE = 'No :attribute file was uploaded.';
+    const ASSERT_UPLOAD_ERR_NO_TMP_DIR = 'Upload failed. Missing a temporary upload folder.';
+    const ASSERT_UPLOAD_ERR_CANT_WRITE = 'Upload failed. Failed to write file to disk.';
+    const ASSERT_UPLOAD_ERR_EXTENSION = 'Upload failed. File upload was stopped.';
+    const ASSERT_IS_IMAGE = 'Value must be a valid image file.';
+    const ASSERT_HAS_LENGTH = 'Value must be :size files.';
+
     /**
      * @var array
      */

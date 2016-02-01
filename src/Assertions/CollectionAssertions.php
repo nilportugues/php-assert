@@ -15,15 +15,14 @@ use NilPortugues\Assert\Exceptions\AssertionException;
 
 class CollectionAssertions
 {
-    const ASSERT_IS_ARRAY = "";
-    const ASSERT_EACH = "";
-    const ASSERT_KEY_FORMAT = "";
-    const ASSERT_ENDS_WITH = "";
-    const ASSERT_CONTAINS = "";
-    const ASSERT_HAS_KEYS = "";
-    const ASSERT_HAS_LENGTH = "";
-    const ASSERT_IS_NOT_EMPTY = "";
-    const ASSERT_STARTS_WITH = "";
+    const ASSERT_IS_ARRAY = 'Value must be an array.';
+    const ASSERT_KEY_FORMAT = 'Value array key format is not valid.';
+    const ASSERT_ENDS_WITH = 'Value array does not end as expected.';
+    const ASSERT_CONTAINS = 'Value was not found.';
+    const ASSERT_HAS_KEY = 'Value array has no :key.';
+    const ASSERT_HAS_LENGTH = 'Value must contain :size items.';
+    const ASSERT_IS_NOT_EMPTY = 'Value must have at least 1 item.';
+    const ASSERT_STARTS_WITH = 'Value array does not start as expected.';
 
     /**
      * @param $value
@@ -54,17 +53,15 @@ class CollectionAssertions
      */
     public static function each($value, callable $valueValidator, callable $keyValidator = null, $message = '')
     {
-        $isValid = true;
-
         foreach ($value as $key => $data) {
-            $isValid = $isValid && $keyValidator($key);
-            $isValid = $isValid && $valueValidator($data);
-        }
-
-        if (false === $isValid) {
-            throw new AssertionException(
-                ($message) ? $message : self::ASSERT_EACH
-            );
+            try {
+                $keyValidator($key);
+                $valueValidator($data);
+            } catch (\Exception $e) {
+                throw new AssertionException(
+                    ($message) ? $message : $e->getMessage()
+                );
+            }
         }
     }
 
@@ -117,6 +114,7 @@ class CollectionAssertions
                     ($message) ? $message : self::ASSERT_ENDS_WITH
                 );
             }
+
             return;
         }
 
@@ -153,6 +151,7 @@ class CollectionAssertions
                     ($message) ? $message : self::ASSERT_CONTAINS
                 );
             }
+
             return;
         }
 
@@ -174,7 +173,7 @@ class CollectionAssertions
     {
         if (false === array_key_exists($keyName, $value)) {
             throw new AssertionException(
-                ($message) ? $message : self::ASSERT_HAS_KEYS
+                ($message) ? $message : self::ASSERT_HAS_KEY
             );
         }
     }
@@ -226,11 +225,12 @@ class CollectionAssertions
         settype($strict, 'bool');
 
         if (false === $strict) {
-            if(!$first == $needle) {
+            if (!$first == $needle) {
                 throw new AssertionException(
                     ($message) ? $message : self::ASSERT_STARTS_WITH
                 );
             }
+
             return;
         }
 
