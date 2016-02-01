@@ -109,7 +109,7 @@ class CollectionAssertions
         settype($strict, 'bool');
 
         if (false === $strict) {
-            if (false === ($last == $needle)) {
+            if ($last != $needle) {
                 throw new AssertionException(
                     ($message) ? $message : self::ASSERT_ENDS_WITH
                 );
@@ -118,7 +118,7 @@ class CollectionAssertions
             return;
         }
 
-        if (false === ($last === $needle)) {
+        if ($last !== $needle) {
             throw new AssertionException(
                 ($message) ? $message : self::ASSERT_ENDS_WITH
             );
@@ -225,7 +225,7 @@ class CollectionAssertions
         settype($strict, 'bool');
 
         if (false === $strict) {
-            if (!$first == $needle) {
+            if ($first != $needle) {
                 throw new AssertionException(
                     ($message) ? $message : self::ASSERT_STARTS_WITH
                 );

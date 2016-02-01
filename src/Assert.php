@@ -209,7 +209,8 @@ class Assert
         'integer' => ['Integer', 'Generic', 'String'],
         'double' => ['Float', 'Generic', 'String'],
         'string' => ['String', 'DateTime', 'Generic'],
-        'object' => ['DateTime', 'Object',  'Generic'],
+        'object' => ['DateTime', 'Object', 'Generic', 'Collection'],
+        'array' => ['Collection', 'Generic'],
     ];
 
     /**
