@@ -19,8 +19,8 @@ class CollectionAssertions
     const ASSERT_KEY_FORMAT = 'Value array key format is not valid.';
     const ASSERT_ENDS_WITH = 'Value array does not end as expected.';
     const ASSERT_CONTAINS = 'Value was not found.';
-    const ASSERT_HAS_KEY = 'Value array has no :key.';
-    const ASSERT_HAS_LENGTH = 'Value must contain :size items.';
+    const ASSERT_HAS_KEY = 'Value array has no %s.';
+    const ASSERT_HAS_LENGTH = 'Value must contain %s items.';
     const ASSERT_IS_NOT_EMPTY = 'Value must have at least 1 item.';
     const ASSERT_STARTS_WITH = 'Value array does not start as expected.';
 
@@ -173,7 +173,7 @@ class CollectionAssertions
     {
         if (false === array_key_exists($keyName, $value)) {
             throw new AssertionException(
-                ($message) ? $message : self::ASSERT_HAS_KEY
+                ($message) ? $message : sprintf(self::ASSERT_HAS_KEY, $keyName);
             );
         }
     }
@@ -191,7 +191,7 @@ class CollectionAssertions
 
         if (false === (count($value) === $length)) {
             throw new AssertionException(
-                ($message) ? $message : self::ASSERT_HAS_LENGTH
+                ($message) ? $message : sprintf(self::ASSERT_HAS_LENGTH, $length)
             );
         }
     }
