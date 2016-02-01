@@ -173,7 +173,7 @@ class CollectionAssertions
     {
         if (false === array_key_exists($keyName, $value)) {
             throw new AssertionException(
-                ($message) ? $message : sprintf(self::ASSERT_HAS_KEY, $keyName);
+                ($message) ? $message : sprintf(self::ASSERT_HAS_KEY, $keyName)
             );
         }
     }

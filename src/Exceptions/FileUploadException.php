@@ -10,7 +10,7 @@
  */
 namespace NilPortugues\Assert\Exceptions;
 
-class FileUploadException extends \Exception
+class FileUploadException extends AssertionException
 {
     /**
      * @var array
