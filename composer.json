@@ -27,5 +27,8 @@
     },
     "config": {
         "bin-dir": "bin/"
+    },
+    "require": {
+        "satooshi/php-coveralls": "^1.0"
     }
 }
