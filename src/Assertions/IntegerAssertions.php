@@ -141,7 +141,7 @@ class IntegerAssertions
         settype($max, 'int');
 
         if ($min > $max) {
-            throw new AssertionException(sprintf('%s cannot be less than %s for validation', $min, $max));
+            throw new AssertionException(sprintf('%s cannot be less than %s.', $min, $max));
         }
 
         if ($inclusive && !($value >= $min && $value <= $max)) {

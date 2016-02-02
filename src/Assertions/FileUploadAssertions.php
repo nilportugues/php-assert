@@ -10,6 +10,7 @@
  */
 namespace NilPortugues\Assert\Assertions;
 
+use Exception;
 use NilPortugues\Assert\Exceptions\AssertionException;
 use NilPortugues\Assert\Exceptions\FileUploadException;
 
@@ -21,13 +22,7 @@ class FileUploadAssertions
     const ASSERT_HAS_FILE_NAME_FORMAT = 'Value file name format is not valid.';
     const ASSERT_HAS_VALID_UPLOAD_DIRECTORY = 'Value upload directory is not valid.';
     const ASSERT_NOT_OVERWRITING_EXISTING_FILE = 'Value upload will overwrite an existing file.';
-    const ASSERT_UPLOAD_ERR_INI_SIZE = 'Value upload exceeds the maximum file size allowed by the server.';
-    const ASSERT_UPLOAD_ERR_FORM_SIZE = 'Value upload exceeds the maximum file size specified in the form.';
-    const ASSERT_UPLOAD_ERR_PARTIAL = 'Value was only partially uploaded.';
-    const ASSERT_UPLOAD_ERR_NO_FILE = 'No %s file was uploaded.';
-    const ASSERT_UPLOAD_ERR_NO_TMP_DIR = 'Upload failed. Missing a temporary upload folder.';
-    const ASSERT_UPLOAD_ERR_CANT_WRITE = 'Upload failed. Failed to write file to disk.';
-    const ASSERT_UPLOAD_ERR_EXTENSION = 'Upload failed. File upload was stopped.';
+
     const ASSERT_IS_IMAGE = 'Value must be a valid image file.';
     const ASSERT_HAS_LENGTH = 'Value must be %s files.';
 
@@ -95,7 +90,7 @@ class FileUploadAssertions
                     $minSize,
                     $maxSize,
                     $inclusive,
-                    sprintf(self::ASSERT_IS_BETWEEN, $minSize, $maxSize, $format)
+                    sprintf(self::ASSERT_IS_BETWEEN, $minSize / $multiplier, $maxSize / $multiplier, $format)
                 );
             }
 
@@ -104,7 +99,7 @@ class FileUploadAssertions
 
         if (!isset($_FILES[$uploadName]['size'])) {
             throw new AssertionException(
-                ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $minSize, $maxSize, $format)
+                ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $minSize / $multiplier, $maxSize / $multiplier, $format)
             );
         }
 
@@ -112,9 +107,10 @@ class FileUploadAssertions
 
         IntegerAssertions::isBetween(
             $_FILES[$uploadName]['size'],
-            $minSize, $maxSize,
+            $minSize,
+            $maxSize,
             $inclusive,
-            ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $minSize, $maxSize, $format)
+            ($message) ? $message : sprintf(self::ASSERT_IS_BETWEEN, $minSize / $multiplier, $maxSize / $multiplier, $format)
         );
     }
 
@@ -163,7 +159,7 @@ class FileUploadAssertions
             foreach ($_FILES[$uploadName]['name'] as $name) {
                 try {
                     $assertion($name);
-                } catch (AssertionException $e) {
+                } catch (Exception $e) {
                     throw new AssertionException(($message) ? $message : self::ASSERT_HAS_FILE_NAME_FORMAT);
                 }
             }
@@ -173,7 +169,7 @@ class FileUploadAssertions
 
         try {
             $assertion($_FILES[$uploadName]['name']);
-        } catch (AssertionException $e) {
+        } catch (Exception $e) {
             throw new AssertionException(($message) ? $message : self::ASSERT_HAS_FILE_NAME_FORMAT);
         }
     }
