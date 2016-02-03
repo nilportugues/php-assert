@@ -208,6 +208,11 @@ use RuntimeException;
  * @method static void isLongitude($lontitude, $message = '')
  * @method static void isScalar($value, $message = '')
  * @method static void nullOrIsScalar($value, $message = '')
+ * @method static void isFutureDate($value, $message = '')
+ * @method static void isPastDate($value, $message = '')
+ * @method static void nullOrIsFutureDate($value, $message = '')
+ * @method static void nullOrIsPastDate($value, $message = '')
+ *
  * METHODEND
  */
 class Assert
@@ -239,6 +244,8 @@ class Assert
      * @var array
      */
     protected static $methods = [
+        'isfuturedate' => ['DateTime'],
+        'ispastdate' => ['DateTime'],
         'islatitude' => ['String'],
         'islongitude' => ['String'],
         'isrequired' => ['Generic'],

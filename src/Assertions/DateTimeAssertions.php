@@ -36,6 +36,8 @@ class DateTimeAssertions
     const ASSERT_IS_LEAP_YEAR = 'Year provided is not a leap year.';
     const ASSERT_IS_AFTER = 'Date provided must be a after %s.';
     const ASSERT_IS_BEFORE = 'Date provided must be a before %s.';
+    const ASSERT_FUTURE_DATE = 'Date provided is not set in the future.';
+    const ASSERT_PAST_DATE = 'Date provided is not set in the past.';
 
     /**
      * Checks if a value is a a valid datetime format.
@@ -43,7 +45,7 @@ class DateTimeAssertions
      * @param string|DateTime $value
      * @param string          $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isDateTime($value, $message = '')
     {
@@ -88,7 +90,7 @@ class DateTimeAssertions
      * @param bool            $inclusive
      * @param string          $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isAfter($value, $limit, $inclusive = false, $message = '')
     {
@@ -118,7 +120,7 @@ class DateTimeAssertions
      * @param bool            $inclusive
      * @param string          $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isBefore($value, $limit, $inclusive = false, $message = '')
     {
@@ -149,7 +151,7 @@ class DateTimeAssertions
      * @param string          $maxDate
      * @param string          $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isDateRange($value, $minDate, $maxDate, $inclusive = false, $message = '')
     {
@@ -178,7 +180,7 @@ class DateTimeAssertions
      * @param string $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isWeekend($value, $message = '')
     {
@@ -195,7 +197,7 @@ class DateTimeAssertions
      * @param string $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isWeekday($value, $message = '')
     {
@@ -212,7 +214,7 @@ class DateTimeAssertions
      * @param string $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isMonday($value, $message = '')
     {
@@ -229,7 +231,7 @@ class DateTimeAssertions
      * @param string $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isTuesday($value, $message = '')
     {
@@ -246,7 +248,7 @@ class DateTimeAssertions
      * @param string $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isWednesday($value, $message = '')
     {
@@ -263,7 +265,7 @@ class DateTimeAssertions
      * @param string $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isThursday($value, $message = '')
     {
@@ -280,7 +282,7 @@ class DateTimeAssertions
      * @param string $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isFriday($value, $message = '')
     {
@@ -297,7 +299,7 @@ class DateTimeAssertions
      * @param string $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isSaturday($value, $message = '')
     {
@@ -314,7 +316,7 @@ class DateTimeAssertions
      * @param string $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isSunday($value, $message = '')
     {
@@ -331,7 +333,7 @@ class DateTimeAssertions
      * @param DateTime $value
      * @param string   $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isToday($value, $message = '')
     {
@@ -350,7 +352,7 @@ class DateTimeAssertions
      * @param DateTime $value
      * @param string   $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isYesterday($value, $message = '')
     {
@@ -369,7 +371,7 @@ class DateTimeAssertions
      * @param DateTime $value
      * @param string   $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isTomorrow($value, $message = '')
     {
@@ -391,7 +393,7 @@ class DateTimeAssertions
      * @param DateTime $value
      * @param string   $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isLeapYear($value, $message = '')
     {
@@ -408,7 +410,7 @@ class DateTimeAssertions
      * @param string $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isMorning($value, $message = '')
     {
@@ -426,7 +428,7 @@ class DateTimeAssertions
      * @param string $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isAfternoon($value, $message = '')
     {
@@ -444,7 +446,7 @@ class DateTimeAssertions
      * @param string $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isEvening($value, $message = '')
     {
@@ -462,7 +464,7 @@ class DateTimeAssertions
      * @param        $value
      * @param string $message
      *
-     * @return AssertionException
+     * @throws AssertionException
      */
     public static function isNight($value, $message = '')
     {
@@ -472,6 +474,40 @@ class DateTimeAssertions
         if (!($date >= strtotime($value->format('00:00:00')) && $date <= strtotime($value->format('05:59:59')))) {
             throw new AssertionException(
                 ($message) ? $message : self::ASSERT_IS_NIGHT
+            );
+        }
+    }
+
+    /**
+     * @param $value
+     * @param string $message
+     *
+     * @throws AssertionException
+     */
+    public static function isFutureDate($value, $message = '')
+    {
+        $value = self::convertToDateTime($value);
+
+        if (false === ($value > new DateTime())) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_FUTURE_DATE
+            );
+        }
+    }
+
+    /**
+     * @param $value
+     * @param string $message
+     *
+     * @throws AssertionException
+     */
+    public static function isPastDate($value, $message = '')
+    {
+        $value = self::convertToDateTime($value);
+
+        if (false === ($value < new DateTime())) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_PAST_DATE
             );
         }
     }

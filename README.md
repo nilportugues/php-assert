@@ -246,6 +246,8 @@ Assert::isMorning($value, $message = '')
 Assert::isAfternoon($value, $message = '')
 Assert::isEvening($value, $message = '')
 Assert::isNight($value, $message = '')
+Assert::isFutureDate($value, $message = '')
+Assert::isPastDate($value, $message = '')
 
 // nullOr assertions
 Assert::nullOrIsDateTime($value, $message = '')
@@ -269,6 +271,8 @@ Assert::nullOrIsMorning($value, $message = '')
 Assert::nullOrIsAfternoon($value, $message = '')
 Assert::nullOrIsEvening($value, $message = '')
 Assert::nullOrIsNight($value, $message = '')
+Assert::nullOrIsFutureDate($value, $message = '')
+Assert::nullOrIsPastDate($value, $message = '')
 ```
 
 #### Object Assertions

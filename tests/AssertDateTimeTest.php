@@ -315,4 +315,26 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(Exception::class);
         Assert::isNight('12:15:00');
     }
+
+    public function testItShouldCheckIfIsPast()
+    {
+        Assert::isPastDate(new DateTime('now -1 day'));
+    }
+
+    public function testItShouldCheckIfIsPastThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isPastDate(new DateTime('now'));
+    }
+
+    public function testItShouldCheckIfIsFuture()
+    {
+        Assert::isFutureDate(new DateTime('now +1 day'));
+    }
+
+    public function testItShouldCheckIfIsFutureThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isFutureDate(new DateTime('now'));
+    }
 }
