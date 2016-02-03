@@ -53,6 +53,8 @@ Assert::greaterThanOrEqual($property, $value, $message = '');
 Assert::greaterThan($property, $value, $message = '');
 Assert::lessThanOrEqual($property, $value, $message = '');
 Assert::lessThan($property, $value, $message = '');
+
+// nullOr assertions
 Assert::nullOrNotEquals($property, $value, $message = '');
 Assert::nullOrGreaterThanOrEqual($property, $value, $message = '');
 Assert::nullOrGreaterThan($property, $value, $message = '');
@@ -99,6 +101,8 @@ Assert::isUrl($value, $message = '')
 Assert::isUUID($value, $strict = true, $message = '')
 Assert::isLatitude($latitude, $message = '')
 Assert::isLongitude($lontitude, $message = '')
+
+// nullOr assertions
 Assert::nullOrIsString($value, $message = '')
 Assert::nullOrIsAlphanumeric($value, $message = '')
 Assert::nullOrIsAlpha($value, $message = '')
@@ -150,6 +154,8 @@ Assert::isBetween($value, $min, $max, $inclusive = false, $message = '')
 Assert::isOdd($value, $message = '')
 Assert::isEven($value, $message = '')
 Assert::isMultiple($value, $multiple, $message = '')
+
+// nullOr assertions
 Assert::nullOrIsInteger($value, $message = '')
 Assert::nullOrIsNotZero($value, $message = '')
 Assert::nullOrIsPositiveOrZero($value, $message = '')
@@ -175,6 +181,8 @@ Assert::isBetween($value, $min, $max, $inclusive = false, $message = '')
 Assert::isOdd($value, $message = '')
 Assert::isEven($value, $message = '')
 Assert::isMultiple($value, $multiple, $message = '')
+
+// nullOr assertions
 Assert::nullOrIsFloat($value, $message = '')
 Assert::nullOrIsNotZero($value, $message = '')
 Assert::nullOrIsPositiveOrZero($value, $message = '')
@@ -199,6 +207,8 @@ Assert::hasKey($value, $keyName, $message = '')
 Assert::hasLength($value, $length, $message = '')
 Assert::isNotEmpty($value, $message = '')
 Assert::startsWith($haystack, $needle, $strict = false, $message = '')
+
+// nullOr assertions
 Assert::nullOrIsArray($value, $message = '')
 Assert::nullOrEach($value, callable $valueValidator, callable $keyValidator = null, $message = '')
 Assert::nullOrHasKeyFormat($value, callable $keyValidator, $message = '')
@@ -234,6 +244,8 @@ Assert::isMorning($value, $message = '')
 Assert::isAfternoon($value, $message = '')
 Assert::isEvening($value, $message = '')
 Assert::isNight($value, $message = '')
+
+// nullOr assertions
 Assert::nullOrIsDateTime($value, $message = '')
 Assert::nullOrIsAfter($value, $limit, $inclusive = false, $message = '')
 Assert::nullOrIsBefore($value, $limit, $inclusive = false, $message = '')
@@ -268,6 +280,8 @@ Assert::hasParentClass($value, $message = '')
 Assert::isChildOf($value, $parentClass, $message = '')
 Assert::inheritsFrom($value, $inheritsClass, $message = '')
 Assert::hasInterface($value, $interface, $message = '')
+
+// nullOr assertions
 Assert::nullOrIsObject($value, $message = '')
 Assert::nullOrIsInstanceOf($value, $instanceOf, $message = '')
 Assert::nullOrHasProperty($value, $property, $message = '')
@@ -280,6 +294,8 @@ Assert::nullOrHasInterface($value, $interface, $message = '')
 
 #### FileUpload Assertions
 
+FileUpload Assertions look into the `$_FILES` global variable.
+
 ```php
 Assert::isFileUploaded($uploadName, $message = '')
 Assert::isFileUploadedBetweenFileSize($uploadName, $minSize, $maxSize, $format='B', $inclusive = false, $message = '')
@@ -289,6 +305,8 @@ Assert::isFileUploadedNotOverwritingExistingFile($uploadName, $uploadDir, $messa
 Assert::hasFileUploadedFileNameLength($uploadName, $size, $message = '')
 Assert::isFileUploadedImage($uploadName, $message = '')
 Assert::isFileUploadedMimeType($uploadName, array $allowedTypes, $message = '') 
+
+// nullOr assertions
 Assert::nullOrIsFileUploaded($uploadName, $message = '')
 Assert::nullOrIsFileUploadedBetweenFileSize($uploadName, $minSize, $maxSize, $format='B', $inclusive=false, $message='')
 Assert::nullOrHasFileUploadedFileNameFormat($uploadName, callable $assertion, $message = '')
