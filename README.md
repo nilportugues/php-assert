@@ -14,7 +14,7 @@ Assertion library is really straight forward. Pass input to the method call and 
 use NilPortugues\Assert\Assert;
 
 try {
-    Assert::nullOrLowercase(null);
+    Assert::nullOrIsLowercase(null);
     Assert::isUppercase('THIS IS GREAT');
     Assert::isNight(new \DateTime('now'));
     
