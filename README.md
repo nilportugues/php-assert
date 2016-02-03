@@ -33,7 +33,7 @@ Most methods can be called using the "nullOr" prefix instead of the "is" prefix.
 
 
 ```php
-Assert::nullOrLowercase('lowercase'); //OK
+Assert::nullOrIsLowercase('lowercase'); //OK
 Assert::isLowercase(null); //raises Exception
 ```
 
