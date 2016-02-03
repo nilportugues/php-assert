@@ -206,6 +206,8 @@ use RuntimeException;
  * @method static void nullOrIsLongitude($lontitude, $message = '')
  * @method static void isLatitude($latitude, $message = '')
  * @method static void isLongitude($lontitude, $message = '')
+ * @method static void isScalar($value, $message = '')
+ * @method static void nullOrIsScalar($value, $message = '')
  * METHODEND
  */
 class Assert
@@ -332,6 +334,8 @@ class Assert
         'haskeyformat' => ['Collection'],
         'haskey' => ['Collection'],
         'isnotempty' => ['Collection'],
+        'isscalar' => ['Generic'],
+        'nullorisscalar' => ['Generic'],
     ];
 
     /**

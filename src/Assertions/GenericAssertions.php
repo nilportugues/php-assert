@@ -21,6 +21,20 @@ class GenericAssertions
     const ASSERT_GREATER = 'Value is not greater than the provided value.';
     const ASSERT_LESS_THAN_OR_EQUAL = 'Value is not less or equal than the provided value.';
     const ASSERT_LESS = 'Value is not less than the provided value.';
+    const ASSERT_IS_SCALAR = 'Value must be a scalar.';
+
+    /**
+     * @param $value
+     * @param string $message
+     */
+    public static function isScalar($value, $message = '')
+    {
+        if (false === is_scalar($value)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_SCALAR
+            );
+        }
+    }
 
     /**
      * @param string|null $value

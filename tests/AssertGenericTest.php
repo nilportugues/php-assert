@@ -7,6 +7,19 @@ use NilPortugues\Assert\Assert;
 
 class AssertGenericTest extends \PHPUnit_Framework_TestCase
 {
+    public function testItShouldCheckIfIsScalar()
+    {
+        $value = 'asdsdadds';
+        Assert::isScalar($value);
+    }
+
+    public function testItShouldCheckIfIsScalarThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $value = [];
+        Assert::isScalar($value);
+    }
+
     public function testItShouldCheckIfIsRequired()
     {
         $value = 'asdsdadds';

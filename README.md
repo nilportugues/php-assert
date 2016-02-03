@@ -53,6 +53,7 @@ Assert::greaterThanOrEqual($property, $value, $message = '');
 Assert::greaterThan($property, $value, $message = '');
 Assert::lessThanOrEqual($property, $value, $message = '');
 Assert::lessThan($property, $value, $message = '');
+Assert::isScalar($value, $message = '');
 
 // nullOr assertions
 Assert::nullOrNotEquals($property, $value, $message = '');
@@ -60,6 +61,7 @@ Assert::nullOrGreaterThanOrEqual($property, $value, $message = '');
 Assert::nullOrGreaterThan($property, $value, $message = '');
 Assert::nullOrLessThanOrEqual($property, $value, $message = '');
 Assert::nullOrLessThan($property, $value, $message = '');
+Assert::nullOrIsScalar($value, $message = '');
 ```
 
 #### String Assertions
