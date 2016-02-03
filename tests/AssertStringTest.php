@@ -674,4 +674,26 @@ class AssertStringTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(Exception::class);
         Assert::isUUID('216fff4098d911e3a5e20800200c9a66');
     }
+
+    public function testIsLongitude()
+    {
+        Assert::isLongitude(37.4895);
+    }
+
+    public function testIsLongitudeThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isLongitude(250.4559);
+    }
+
+    public function testIsLatitude()
+    {
+        Assert::isLatitude(20.4578);
+    }
+
+    public function testIsLatitudeThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isLatitude(120.4545);
+    }
 }

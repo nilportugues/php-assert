@@ -202,7 +202,10 @@ use RuntimeException;
  * @method static void nullOrGreaterThan($property, $value, $message = '')
  * @method static void nullOrLessThanOrEqual($property, $value, $message = '')
  * @method static void nullOrLessThan($property, $value, $message = '')
- *
+ * @method static void nullOrIsLatitude($latitude, $message = '')
+ * @method static void nullOrIsLongitude($lontitude, $message = '')
+ * @method static void isLatitude($latitude, $message = '')
+ * @method static void isLongitude($lontitude, $message = '')
  * METHODEND
  */
 class Assert
@@ -234,6 +237,8 @@ class Assert
      * @var array
      */
     protected static $methods = [
+        'islatitude' => ['String'],
+        'islongitude' => ['String'],
         'isrequired' => ['Generic'],
         'isnotnull' => ['Generic'],
         'notequals' => ['Generic'],

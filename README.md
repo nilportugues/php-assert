@@ -99,6 +99,8 @@ Assert::hasSpecialCharacters($value, $amount = null, $message = '')
 Assert::isEmail($value, $message = '')
 Assert::isUrl($value, $message = '')
 Assert::isUUID($value, $strict = true, $message = '')
+Assert::isLatitude($latitude, $message = '')
+Assert::isLongitude($lontitude, $message = '')
 Assert::nullOrIsString($value, $message = '')
 Assert::nullOrIsAlphanumeric($value, $message = '')
 Assert::nullOrIsAlpha($value, $message = '')
@@ -133,6 +135,8 @@ Assert::nullOrHasSpecialCharacters($value, $amount = null, $message = '')
 Assert::nullOrIsEmail($value, $message = '')
 Assert::nullOrIsUrl($value, $message = '')
 Assert::nullOrIsUUID($value, $strict = true, $message = '')
+Assert::nullOrIsLatitude($latitude, $message = '')
+Assert::nullOrIsLongitude($lontitude, $message = '')
 ```
 
 #### Integer Assertions

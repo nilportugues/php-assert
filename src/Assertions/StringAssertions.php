@@ -48,6 +48,8 @@ class StringAssertions
     const ASSERT_IS_EMAIL = 'Value must be a valid email address.';
     const ASSERT_IS_URL = 'Value must be a valid URL.';
     const ASSERT_IS_UUID = 'Value must be a valid UUID.';
+    const ASSERT_IS_LATITUDE = 'Value is not a valid latitude.';
+    const ASSERT_IS_LONGITUDE = 'Value is not a valid longitude.';
 
     /**
      * @param $value
@@ -700,5 +702,35 @@ class StringAssertions
                 ($message) ? $message : self::ASSERT_IS_UUID
             );
         }
+    }
+
+    /**
+     * @param string $latitude
+     * @param string $message
+     *
+     * @throws AssertionException
+     */
+    public static function isLatitude($latitude, $message = '')
+    {
+        self::matchesRegex(
+            $latitude,
+            '/^-?([1-8]?\d(?:\.\d{1,})?|90(?:\.0{1,6})?)$/',
+            ($message) ? $message : self::ASSERT_IS_LATITUDE
+        );
+    }
+
+    /**
+     * @param string $longitude
+     * @param string $message
+     *
+     * @throws AssertionException
+     */
+    public static function isLongitude($longitude, $message = '')
+    {
+        self::matchesRegex(
+            $longitude,
+            '/^-?((?:1[0-7]|[1-9])?\d(?:\.\d{1,})?|180(?:\.0{1,})?)$/',
+            ($message) ? $message : self::ASSERT_IS_LONGITUDE
+        );
     }
 }
