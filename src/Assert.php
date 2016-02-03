@@ -299,7 +299,6 @@ class Assert
         'isodd' => ['Integer', 'Float'],
         'iseven' => ['Integer', 'Float'],
         'ismultiple' => ['Integer', 'Float'],
-        /*********************************************/
         'isfileuploaded' => ['FileUpload'],
         'isfileuploadedbetweenfilesize' => ['FileUpload'],
         'hasfileuploadedfilenameformat' => ['FileUpload'],
@@ -308,7 +307,6 @@ class Assert
         'hasfileuploadedfilenamelength' => ['FileUpload'],
         'isfileuploadedimage' => ['FileUpload'],
         'isfileuploadedmimetype' => ['FileUpload'],
-        /*********************************************/
         'isdatetime' => ['DateTime'],
         'isafter' => ['DateTime'],
         'isbefore' => ['DateTime'],
