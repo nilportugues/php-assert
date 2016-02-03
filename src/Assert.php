@@ -212,7 +212,18 @@ use RuntimeException;
  * @method static void isPastDate($value, $message = '')
  * @method static void nullOrIsFutureDate($value, $message = '')
  * @method static void nullOrIsPastDate($value, $message = '')
- *
+ * @method static void isTimeString($value, $message = '')
+ * @method static void isDateString($value, $message = '')
+ * @method static void isHexColor($value, $message = '')
+ * @method static void isIpAddress($value, $message = '')
+ * @method static void isIpv4Address($value, $message = '')
+ * @method static void isIpv6Address($value, $message = '')
+ * @method static void nullOrIsTimeString($value, $message = '')
+ * @method static void nullOrIsDateString($value, $message = '')
+ * @method static void nullOrIsHexColor($value, $message = '')
+ * @method static void nullOrIsIpAddress($value, $message = '')
+ * @method static void nullOrIsIpv4Address($value, $message = '')
+ * @method static void nullOrIsIpv6Address($value, $message = '')
  * METHODEND
  */
 class Assert
@@ -343,6 +354,12 @@ class Assert
         'isnotempty' => ['Collection'],
         'isscalar' => ['Generic'],
         'nullorisscalar' => ['Generic'],
+        'ishexcolor' => ['String'],
+        'isipaddress' => ['String'],
+        'isipv4address' => ['String'],
+        'isipv6address' => ['String'],
+        'istimestring' => ['String'],
+        'isdatestring' => ['String'],
     ];
 
     /**

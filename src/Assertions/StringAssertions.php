@@ -50,6 +50,12 @@ class StringAssertions
     const ASSERT_IS_UUID = 'Value must be a valid UUID.';
     const ASSERT_IS_LATITUDE = 'Value is not a valid latitude.';
     const ASSERT_IS_LONGITUDE = 'Value is not a valid longitude.';
+    const ASSERT_IS_IPV4 = 'Value is not a valid IPv4 address.';
+    const ASSERT_IS_IPV6 = 'Value is not a valid IPv6 address.';
+    const ASSERT_IS_IP = 'Value is not a valid IPv4 or IPv6 address.';
+    const ASSERT_IS_HEX_COLOR = 'Value is not a valid HexColor.';
+    const ASSERT_IS_DATE_STRING = 'Value is not a valid date formatted as: YYYY-MM-DD';
+    const ASSERT_IS_TIME_STRING = 'Value is not a valid time formatted as: H:i:s ';
 
     /**
      * @param $value
@@ -731,6 +737,80 @@ class StringAssertions
             $longitude,
             '/^-?((?:1[0-7]|[1-9])?\d(?:\.\d{1,})?|180(?:\.0{1,})?)$/',
             ($message) ? $message : self::ASSERT_IS_LONGITUDE
+        );
+    }
+
+    /**
+     * @param string $value
+     * @param string $message
+     */
+    public static function isTimeString($value, $message = '')
+    {
+        self::matchesRegex(
+            $value,
+            '/^(2[0-3]|[01]?[0-9]):([0-5]?[0-9]):([0-5]?[0-9])$/',
+            ($message) ? $message : self::ASSERT_IS_TIME_STRING
+        );
+    }
+
+    public static function isDateString($value, $message = '')
+    {
+        self::matchesRegex(
+            $value,
+            '/^(?:[0-9]{2})?[0-9]{2}-(1[0-2]|0?[1-9])-(3[01]|[12][0-9]|0?[1-9])$/',
+            ($message) ? $message : self::ASSERT_IS_DATE_STRING
+        );
+    }
+
+    /**
+     * @param string $value
+     * @param string $message
+     */
+    public static function isHexColor($value, $message = '')
+    {
+        self::matchesRegex(
+            $value,
+            '/^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/',
+            ($message) ? $message : self::ASSERT_IS_HEX_COLOR
+        );
+    }
+
+    /**
+     * @param string $value
+     * @param string $message
+     */
+    public static function isIpAddress($value, $message = '')
+    {
+        self::matchesRegex(
+            $value,
+            '/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$|^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/',
+            ($message) ? $message : self::ASSERT_IS_IP
+        );
+    }
+
+    /**
+     * @param string $value
+     * @param string $message
+     */
+    public static function isIpv4Address($value, $message = '')
+    {
+        self::matchesRegex(
+            $value,
+            '/^(?:(?:\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])\.){3}(?:\d|[1-9]\d|1\d{2}|2[0-4]\d|25[0-5])$/',
+            ($message) ? $message : self::ASSERT_IS_IPV4
+        );
+    }
+
+    /**
+     * @param string $value
+     * @param string $message
+     */
+    public static function isIpv6Address($value, $message = '')
+    {
+        self::matchesRegex(
+            $value,
+            '/^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$|^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/',
+            ($message) ? $message : self::ASSERT_IS_IPV6
         );
     }
 }

@@ -696,4 +696,33 @@ class AssertStringTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException(Exception::class);
         Assert::isLatitude(120.4545);
     }
+
+    public static function testItIsHexColor()
+    {
+        Assert::isHexColor('#000');
+        Assert::isHexColor('#000000');
+    }
+
+    public static function testItIsIpAddress()
+    {
+        Assert::isIpAddress('127.0.0.1');
+    }
+
+    public static function testItIsIpv4Address()
+    {
+        Assert::isIpv4Address('127.0.0.1');
+    }
+
+    public static function testItIsIpv6Address()
+    {
+        Assert::isIpv6Address('::1');
+    }
+    public function testIsTimeString()
+    {
+        Assert::isTimeString('12:13:14');
+    }
+    public function testIsDateString()
+    {
+        Assert::isDateString('2015-12-11');
+    }
 }

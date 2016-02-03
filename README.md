@@ -103,6 +103,12 @@ Assert::isUrl($value, $message = '')
 Assert::isUUID($value, $strict = true, $message = '')
 Assert::isLatitude($latitude, $message = '')
 Assert::isLongitude($lontitude, $message = '')
+Assert::isTimeString($value, $message = '')
+Assert::isDateString($value, $message = '')
+Assert::isHexColor($value, $message = '')
+Assert::isIpAddress($value, $message = '')
+Assert::isIpv4Address($value, $message = '')
+Assert::isIpv6Address($value, $message = '')
 
 // nullOr assertions
 Assert::nullOrIsString($value, $message = '')
@@ -141,6 +147,12 @@ Assert::nullOrIsUrl($value, $message = '')
 Assert::nullOrIsUUID($value, $strict = true, $message = '')
 Assert::nullOrIsLatitude($latitude, $message = '')
 Assert::nullOrIsLongitude($lontitude, $message = '')
+Assert::nullOrIsTimeString($value, $message = '')
+Assert::nullOrIsDateString($value, $message = '')
+Assert::nullOrIsHexColor($value, $message = '')
+Assert::nullOrIsIpAddress($value, $message = '')
+Assert::nullOrIsIpv4Address($value, $message = '')
+Assert::nullOrIsIpv6Address($value, $message = '')
 ```
 
 #### Integer Assertions
