@@ -252,6 +252,18 @@ use RuntimeException;
  * @method static void nullOrIsTrimesterOfYear($value, $trimester, $message = '')
  * @method static void nullOrIsQuarterOfYear($value, $quarter, $message = '')
  * @method static void nullOrIsDayLightSavingTime($value, $message = '')
+ * @method static void isJson($value, $message = '')
+ * @method static void isCreditCard($value, $message = '')
+ * @method static void nullOrIsJson($value, $message = '')
+ * @method static void nullOrIsCreditCard($value, $message = '')
+ * @method static void nullOrIsPalindrome($value, $message = '')
+ * @method static void isPalindrome($value, $message = '')
+ * @method static void isUnderScore($value, $message = '')
+ * @method static void nullOrIsUnderScore($value, $message = '')
+ * @method static void isCamelCase($value, $message = '')
+ * @method static void nullOrIsCamelCase($value, $message = '')
+ * @method static void isTitleCase($value, $message = '')
+ * @method static void nullOrIsTitleCase($value, $message = '')
  *
  * METHODEND
  */
@@ -284,6 +296,12 @@ class Assert
      * @var array
      */
     protected static $methods = [
+        'istitlecase' => ['String'],
+        'iscamelcase' => ['String'],
+        'isunderscore' => ['String'],
+        'ispalindrome' => ['String'],
+        'isjson' => ['String'],
+        'iscreditcard' => ['String'],
         'isinnextweek' => ['DateTime'],
         'isinweek' => ['DateTime'],
         'isinlastweek' => ['DateTime'],

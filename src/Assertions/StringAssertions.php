@@ -10,6 +10,7 @@
  */
 namespace NilPortugues\Assert\Assertions;
 
+use NilPortugues\Assert\Assertions\Helpers\StringHelpers;
 use NilPortugues\Assert\Exceptions\AssertionException;
 
 class StringAssertions
@@ -56,6 +57,11 @@ class StringAssertions
     const ASSERT_IS_HEX_COLOR = 'Value is not a valid HexColor.';
     const ASSERT_IS_DATE_STRING = 'Value is not a valid date formatted as: YYYY-MM-DD';
     const ASSERT_IS_TIME_STRING = 'Value is not a valid time formatted as: H:i:s ';
+    const ASSERT_IS_JSON = 'Value provided is not a valid JSON string';
+    const ASSERT_IS_PALINDROME = 'Value is not a palindrome.';
+    const ASSERT_IS_UNDERSCORE = 'Value is not under_score.';
+    const ASSERT_IS_CAMELCASE = 'Value is not camelCase.';
+    const ASSERT_IS_TITLE_CASE = 'Value is not Title Case.';
 
     /**
      * @param $value
@@ -743,6 +749,8 @@ class StringAssertions
     /**
      * @param string $value
      * @param string $message
+     *
+     * @throws AssertionException
      */
     public static function isTimeString($value, $message = '')
     {
@@ -753,6 +761,12 @@ class StringAssertions
         );
     }
 
+    /**
+     * @param string $value
+     * @param string $message
+     *
+     * @throws AssertionException
+     */
     public static function isDateString($value, $message = '')
     {
         self::matchesRegex(
@@ -765,6 +779,8 @@ class StringAssertions
     /**
      * @param string $value
      * @param string $message
+     *
+     * @throws AssertionException
      */
     public static function isHexColor($value, $message = '')
     {
@@ -778,6 +794,8 @@ class StringAssertions
     /**
      * @param string $value
      * @param string $message
+     *
+     * @throws AssertionException
      */
     public static function isIpAddress($value, $message = '')
     {
@@ -791,6 +809,8 @@ class StringAssertions
     /**
      * @param string $value
      * @param string $message
+     *
+     * @throws AssertionException
      */
     public static function isIpv4Address($value, $message = '')
     {
@@ -804,6 +824,8 @@ class StringAssertions
     /**
      * @param string $value
      * @param string $message
+     *
+     * @throws AssertionException
      */
     public static function isIpv6Address($value, $message = '')
     {
@@ -812,5 +834,103 @@ class StringAssertions
             '/^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$|^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/',
             ($message) ? $message : self::ASSERT_IS_IPV6
         );
+    }
+
+    /**
+     * @param string $value
+     * @param string $message
+     *
+     * @throws AssertionException
+     */
+    public static function isCreditCard($value, $message = '')
+    {
+        self::matchesRegex(
+            $value,
+            '/^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/',
+            ($message) ? $message : self::ASSERT_IS_IPV6
+        );
+    }
+
+    /**
+     * @param string $value
+     * @param string $message
+     *
+     * @throws AssertionException
+     */
+    public static function isJson($value, $message = '')
+    {
+        json_decode($value);
+
+        if (JSON_ERROR_NONE != json_last_error()) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_JSON
+            );
+        }
+    }
+
+    /**
+     * @param string $value
+     * @param string $message
+     *
+     * @throws AssertionException
+     */
+    public static function isPalindrome($value, $message = '')
+    {
+        $value = str_replace(' ', '', $value);
+
+        if (false === ($value == strrev($value))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_PALINDROME
+            );
+        }
+    }
+
+    /**
+     * @param string $value
+     * @param string $message
+     *
+     * @throws AssertionException
+     */
+    public static function isUnderScore($value, $message = '')
+    {
+        $underscored = StringHelpers::camelCaseToUnderscore($value);
+
+        if (false === ($value == $underscored)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_UNDERSCORE
+            );
+        }
+    }
+
+    /**
+     * @param string $value
+     * @param string $message
+     *
+     * @throws AssertionException
+     */
+    public static function isCamelCase($value, $message = '')
+    {
+        $toCamelCase = StringHelpers::underscoreToCamelCase(StringHelpers::camelCaseToUnderscore($value));
+
+        if (false === ($value == $toCamelCase)) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_CAMELCASE
+            );
+        }
+    }
+
+    /**
+     * @param string $value
+     * @param string $message
+     *
+     * @throws AssertionException
+     */
+    public static function isTitleCase($value, $message = '')
+    {
+        if (false === ($value == ucwords($value))) {
+            throw new AssertionException(
+                ($message) ? $message : self::ASSERT_IS_TITLE_CASE
+            );
+        }
     }
 }

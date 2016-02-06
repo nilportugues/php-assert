@@ -109,7 +109,12 @@ Assert::isHexColor($value, $message = '')
 Assert::isIpAddress($value, $message = '')
 Assert::isIpv4Address($value, $message = '')
 Assert::isIpv6Address($value, $message = '')
-
+Assert::isJson($value, $message = '')
+Assert::isCreditCard($value, $message = '')
+Assert::isPalindrome($value, $message = '')
+Assert::isUnderScore($value, $message = '')
+Assert::isTitleCase($value, $message = '')
+ 
 // nullOr assertions
 Assert::nullOrIsString($value, $message = '')
 Assert::nullOrIsAlphanumeric($value, $message = '')
@@ -153,6 +158,12 @@ Assert::nullOrIsHexColor($value, $message = '')
 Assert::nullOrIsIpAddress($value, $message = '')
 Assert::nullOrIsIpv4Address($value, $message = '')
 Assert::nullOrIsIpv6Address($value, $message = '')
+Assert::nullOrIsJson($value, $message = '')
+Assert::nullOrIsCreditCard($value, $message = '')
+Assert::nullOrIsPalindrome($value, $message = '')
+Assert::nullOrIsUnderScore($value, $message = '')
+Assert::nullOrIsTitleCase($value, $message = '')
+
 ```
 
 #### Integer Assertions

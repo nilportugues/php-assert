@@ -725,4 +725,64 @@ class AssertStringTest extends \PHPUnit_Framework_TestCase
     {
         Assert::isDateString('2015-12-11');
     }
+
+    public function testItIsCreditCard()
+    {
+        Assert::isCreditCard('378282246310005');
+    }
+
+    public function testItIsJson()
+    {
+        Assert::isJson('{"hello": 1}');
+    }
+
+    public function testItIsJsonThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isJson('aaaaaaaaaaaaaaaaa');
+    }
+
+    public function testItIsPalindrome()
+    {
+        Assert::isPalindrome('girafarig');
+    }
+
+    public function testItIsPalindromeThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isPalindrome('Pikachu');
+    }
+
+    public function testItIsUnderScore()
+    {
+        Assert::isUnderScore('thunder_bolt');
+    }
+
+    public function testItIsUnderScoreThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isUnderScore('thunder_Bolt');
+    }
+
+    public function testItIsCamelCase()
+    {
+        Assert::isCamelCase('ThunderBolt');
+    }
+
+    public function testItIsCamelCaseThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isCamelCase('thunderBolt');
+    }
+
+    public function testItIsTitleCase()
+    {
+        Assert::isTitleCase('The Star Wars');
+    }
+
+    public function testItIsTitleCaseThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isTitleCase('The Star wars');
+    }
 }
