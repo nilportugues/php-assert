@@ -224,6 +224,35 @@ use RuntimeException;
  * @method static void nullOrIsIpAddress($value, $message = '')
  * @method static void nullOrIsIpv4Address($value, $message = '')
  * @method static void nullOrIsIpv6Address($value, $message = '')
+ * @method static void isInNextWeek($value, $message = '')
+ * @method static void isInWeek($value, $weekNumber, $message = '')
+ * @method static void isInLastWeek($value, $message = '')
+ * @method static void isInLastMonth($value, $message = '')
+ * @method static void isInMonth($value, $monthNumber, $message = '')
+ * @method static void isInNextMonth($value, $message = '')
+ * @method static void isInLastYear($value, $message = '')
+ * @method static void isInYear($value, $yearNumber, $message = '')
+ * @method static void isInNextYear($value, $message = '')
+ * @method static void isFirstHalfOfYear($value, $message = '')
+ * @method static void isSecondHalfOfYear($value, $message = '')
+ * @method static void isTrimesterOfYear($value, $trimester, $message = '')
+ * @method static void isQuarterOfYear($value, $quarter, $message = '')
+ * @method static void isDayLightSavingTime($value, $message = '')
+ * @method static void nullOrIsInNextWeek($value, $message = '')
+ * @method static void nullOrIsInWeek($value, $weekNumber, $message = '')
+ * @method static void nullOrIsInLastWeek($value, $message = '')
+ * @method static void nullOrIsInLastMonth($value, $message = '')
+ * @method static void nullOrIsInMonth($value, $monthNumber, $message = '')
+ * @method static void nullOrIsInNextMonth($value, $message = '')
+ * @method static void nullOrIsInLastYear($value, $message = '')
+ * @method static void nullOrIsInYear($value, $yearNumber, $message = '')
+ * @method static void nullOrIsInNextYear($value, $message = '')
+ * @method static void nullOrIsFirstHalfOfYear($value, $message = '')
+ * @method static void nullOrIsSecondHalfOfYear($value, $message = '')
+ * @method static void nullOrIsTrimesterOfYear($value, $trimester, $message = '')
+ * @method static void nullOrIsQuarterOfYear($value, $quarter, $message = '')
+ * @method static void nullOrIsDayLightSavingTime($value, $message = '')
+ *
  * METHODEND
  */
 class Assert
@@ -255,6 +284,20 @@ class Assert
      * @var array
      */
     protected static $methods = [
+        'isinnextweek' => ['DateTime'],
+        'isinweek' => ['DateTime'],
+        'isinlastweek' => ['DateTime'],
+        'isinlastmonth' => ['DateTime'],
+        'isinmonth' => ['DateTime'],
+        'isinnextmonth' => ['DateTime'],
+        'isinlastyear' => ['DateTime'],
+        'isinyear' => ['DateTime'],
+        'isinnextyear' => ['DateTime'],
+        'isfirsthalfofyear' => ['DateTime'],
+        'issecondhalfofyear' => ['DateTime'],
+        'istrimesterofyear' => ['DateTime'],
+        'isquarterofyear' => ['DateTime'],
+        'isdaylightsavingtime' => ['DateTime'],
         'isfuturedate' => ['DateTime'],
         'ispastdate' => ['DateTime'],
         'islatitude' => ['String'],

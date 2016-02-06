@@ -13,6 +13,7 @@ namespace NilPortugues\Assert\Assertions;
 use DateTime;
 use DateTimeImmutable;
 use DateTimeInterface;
+use DateTimeZone;
 use NilPortugues\Assert\Exceptions\AssertionException;
 
 class DateTimeAssertions
@@ -40,29 +41,33 @@ class DateTimeAssertions
     const ASSERT_IS_BEFORE = 'Date provided must be a before %s.';
     const ASSERT_FUTURE_DATE = 'Date provided is not set in the future.';
     const ASSERT_PAST_DATE = 'Date provided is not set in the past.';
-    const ASSERT_IS_QUARTER = "Date provided does not belong to the quarter %s of the year.";
-    const ASSERT_IS_TRIMESTER = "Date provided does not belong to the trimester %s of the year.";
-    const ASSERT_IS_SECOND_FIRST_YEAR = "Date provided does not belong to the second half of the year.";
-    const ASSERT_IS_SECOND_HALF_YEAR = "Date provided does not belong to the second half of the year.";
-    const ASSERT_IS_IN_YEAR = "Date provided is does not belong to year %s.";
-    const ASSERT_IS_IN_NEXT_YEAR = "Date provided is does not belong to next year (%s).";
-    const ASSERT_IS_IN_PAST_YEAR = "Date provided is does not belong to past year (%s).";
-    const ASSERT_IS_IN_MONTH =  "Date provided is does not belong to month (%s).";
-    const ASSERT_IS_IN_NEXT_MONTH = "Date provided is does not belong to next month (%s).";
-    const ASSERT_IS_IN_PAST_MONTH = "Date provided is does not belong to last month (%s).";
+    const ASSERT_IS_QUARTER = 'Date provided does not belong to the quarter %s of the year.';
+    const ASSERT_IS_TRIMESTER = 'Date provided does not belong to the trimester %s of the year.';
+    const ASSERT_IS_SECOND_FIRST_YEAR = 'Date provided does not belong to the second half of the year.';
+    const ASSERT_IS_SECOND_HALF_YEAR = 'Date provided does not belong to the second half of the year.';
+    const ASSERT_IS_IN_YEAR = 'Date provided does not belong to year %s.';
+    const ASSERT_IS_IN_NEXT_YEAR = 'Date provided does not belong to next year (%s).';
+    const ASSERT_IS_IN_PAST_YEAR = 'Date provided does not belong to past year (%s).';
+    const ASSERT_IS_IN_MONTH = 'Date provided does not belong to month (%s).';
+    const ASSERT_IS_IN_NEXT_MONTH = 'Date provided does not belong to next month (%s).';
+    const ASSERT_IS_IN_PAST_MONTH = 'Date provided does not belong to last month (%s).';
+    const ASSERT_IS_IN_WEEK = 'Date provided does not belong to week %s.';
+    const ASSERT_IS_NEXT_WEEK = 'Date provided does not belong to next week.';
+    const ASSERT_IS_LAST_WEEK = 'Date provided does not belong to last week.';
+    const ASSERT_IS_DST = 'Date provided is not in DST.';
 
     /**
      * Checks if a value is a a valid datetime format.
      *
      * @param string|DateTimeInterface $value
-     * @param string          $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
     public static function isDateTime($value, $message = '')
     {
         if ($value instanceof DateTimeInterface) {
-            return ;
+            return;
         }
 
         try {
@@ -81,26 +86,12 @@ class DateTimeAssertions
     }
 
     /**
-     * @param string|DateTimeInterface $value
-     *
-     * @return DateTimeImmutable
-     */
-    private static function convertToDateTime($value)
-    {
-        if ($value instanceof DateTimeInterface) {
-            return new DateTimeImmutable($value->format(DATE_ATOM));
-        }
-
-        return new DateTimeImmutable($value);
-    }
-
-    /**
      * Checks if a given date is happening after the given limiting date.
      *
      * @param string|DateTimeInterface $value
      * @param string|DateTimeInterface $limit
-     * @param bool            $inclusive
-     * @param string          $message
+     * @param bool                     $inclusive
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -125,12 +116,26 @@ class DateTimeAssertions
     }
 
     /**
+     * @param string|DateTimeInterface $value
+     *
+     * @return DateTimeImmutable
+     */
+    private static function convertToDateTime($value)
+    {
+        if ($value instanceof DateTimeInterface) {
+            return new DateTimeImmutable($value->format(DATE_ATOM));
+        }
+
+        return new DateTimeImmutable($value);
+    }
+
+    /**
      * Checks if a given date is happening before the given limiting date.
      *
      * @param string|DateTimeInterface $value
      * @param string|DateTimeInterface $limit
-     * @param bool            $inclusive
-     * @param string          $message
+     * @param bool                     $inclusive
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -158,10 +163,10 @@ class DateTimeAssertions
      * Checks if a given date is in a given range of dates.
      *
      * @param string|DateTimeInterface $value
-     * @param bool            $inclusive
-     * @param string          $minDate
-     * @param string          $maxDate
-     * @param string          $message
+     * @param bool                     $inclusive
+     * @param string                   $minDate
+     * @param string                   $maxDate
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -190,7 +195,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -207,7 +212,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -224,7 +229,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -241,7 +246,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -258,7 +263,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -275,7 +280,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -292,7 +297,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -309,7 +314,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -326,7 +331,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -343,7 +348,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string   $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -362,7 +367,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string   $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -381,7 +386,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string   $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -403,7 +408,7 @@ class DateTimeAssertions
      *
      *
      * @param string|DateTimeInterface $value
-     * @param string   $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -420,7 +425,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -438,7 +443,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -456,7 +461,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -474,7 +479,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -492,7 +497,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -509,7 +514,7 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -524,43 +529,83 @@ class DateTimeAssertions
         }
     }
 
-    public static function isInWeek($value, $weekNumber, $message)
-    {
-
-    }
-
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
     public static function isInNextWeek($value, $message = '')
     {
-        $value = self::convertToDateTime($value);
+        $nextWeek = (new DateTime('now +1 week'))->format('W');
+
+        self::isInWeek(
+            $value,
+            $nextWeek,
+            ($message) ? $message : sprintf(self::ASSERT_IS_NEXT_WEEK, $nextWeek)
+        );
     }
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param                          $weekNumber
+     * @param string                   $message
+     */
+    public static function isInWeek($value, $weekNumber, $message = '')
+    {
+        $weekValue = (int) self::convertToDateTime($value)->format('W');
+        $weekNumber = (int) $weekNumber;
+
+        if (false === ($weekValue == $weekNumber)) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_IN_WEEK, $weekNumber)
+            );
+        }
+    }
+
+    /**
+     * @param string|DateTimeInterface $value
+     * @param string                   $message
      *
      * @throws AssertionException
      */
     public static function isInLastWeek($value, $message = '')
     {
-        $lastWeek = (new DateTime('now -1 week'))->format('W');
+        $lastWeek = (int) (new DateTime('now -1 week'))->format('W');
+
         self::isInWeek(
             $value,
             $lastWeek,
-            ($message)
+            ($message) ? $message : sprintf(self::ASSERT_IS_LAST_WEEK, $lastWeek)
         );
     }
 
+    /**
+     * @param string|DateTimeInterface $value
+     * @param string                   $message
+     *
+     * @throws AssertionException
+     */
+    public static function isInLastMonth($value, $message = '')
+    {
+        $date = strtotime('-1 month');
+        $past = DateTime::createFromFormat('U', $date);
 
-    public static function isInMonth($value, $monthNumber, $message)
+        self::isInMonth(
+            $value,
+            $past->format('m'),
+            ($message) ? $message : sprintf(self::ASSERT_IS_IN_PAST_MONTH, $past->format('F'))
+        );
+    }
+
+    /**
+     * @param string|DateTimeInterface $value
+     * @param                          $monthNumber
+     * @param string                   $message
+     */
+    public static function isInMonth($value, $monthNumber, $message = '')
     {
         $value = self::convertToDateTime($value);
-        $monthNumber = (new DateTime($monthNumber))->format('n');
 
         if ($value->format('n') != $monthNumber) {
             throw new AssertionException(
@@ -571,58 +616,25 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
-     *
-     * @throws AssertionException
-     */
-    public static function isInLastMonth($value, $message = '')
-    {
-        $past = (new DateTime('now -1 month'))->format('n');
-
-        self::isInMonth(
-            $value,
-            $past,
-            ($message) ? $message :  sprintf(self::ASSERT_IS_IN_PAST_MONTH, (new DateTime($past))->format('F'))
-        );
-    }
-
-    /**
-     * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
     public static function isInNextMonth($value, $message = '')
     {
-        $next = (new DateTime('now +1 month'))->format('n');
+        $date = strtotime('+1 month');
+        $next = DateTime::createFromFormat('U', $date);
 
         self::isInMonth(
             $value,
-            $next,
-            ($message) ? $message :  sprintf(self::ASSERT_IS_IN_NEXT_MONTH, (new DateTime($next))->format('F'))
+            $next->format('m'),
+            ($message) ? $message : sprintf(self::ASSERT_IS_IN_NEXT_MONTH, $next->format('F'))
         );
     }
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $yearNumber
-     * @param string $message
-     */
-    public static function isInYear($value, $yearNumber, $message)
-    {
-        $value = self::convertToDateTime($value);
-        $yearAssert = (new DateTime($yearNumber))->format('Y');
-
-        if ($value->format('Y') != $yearAssert) {
-            throw new AssertionException(
-                ($message) ? $message : sprintf(self::ASSERT_IS_IN_YEAR, $yearAssert)
-            );
-        }
-    }
-
-    /**
-     * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -639,7 +651,23 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $yearNumber
+     * @param string                   $message
+     */
+    public static function isInYear($value, $yearNumber, $message = '')
+    {
+        $value = self::convertToDateTime($value);
+
+        if ($value->format('Y') != $yearNumber) {
+            throw new AssertionException(
+                ($message) ? $message : sprintf(self::ASSERT_IS_IN_YEAR, $yearNumber)
+            );
+        }
+    }
+
+    /**
+     * @param string|DateTimeInterface $value
+     * @param string                   $message
      *
      * @throws AssertionException
      */
@@ -656,33 +684,34 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
     public static function isFirstHalfOfYear($value, $message = '')
     {
         $value = self::convertToDateTime($value);
-        $half = (int) ($value->format('n')-1 / 6);
+        $half = (int) (($value->format('n') - 1) / 6);
 
-        if ($half != 0) {
+        if (1 == $half) {
             throw new AssertionException(
                 ($message) ? $message : self::ASSERT_IS_SECOND_HALF_YEAR
             );
         }
     }
+
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $message
      *
      * @throws AssertionException
      */
     public static function isSecondHalfOfYear($value, $message = '')
     {
         $value = self::convertToDateTime($value);
-        $half = (int) ($value->format('n')-1 / 6);
+        $half = (int) (($value->format('n') - 1) / 6);
 
-        if ($half != 1) {
+        if (0 == $half) {
             throw new AssertionException(
                 ($message) ? $message : self::ASSERT_IS_SECOND_HALF_YEAR
             );
@@ -691,43 +720,45 @@ class DateTimeAssertions
 
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $trimester
+     * @param string                   $message
      *
      * @throws AssertionException
      */
     public static function isTrimesterOfYear($value, $trimester, $message = '')
     {
-        $value = self::convertToDateTime($value);
         $trimester = (int) $trimester;
 
-        if ($trimester>0 && $trimester<5) {
+        if ($trimester < 1 || $trimester > 4) {
             throw new AssertionException('Provided trimester value must range from 1 to 4');
         }
 
         $value = self::convertToDateTime($value);
-        $currentTrimester = (int) (($value->format('n')-1)/ 3);
+        $currentTrimester = (int) (($value->format('n') - 1) / 3);
 
-        if ($currentTrimester != ($trimester-1)) {
+        if ($currentTrimester != ($trimester - 1)) {
             throw new AssertionException(
                 ($message) ? $message : sprintf(self::ASSERT_IS_TRIMESTER, $trimester)
             );
         }
     }
+
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
+     * @param string                   $quarter
+     * @param string                   $message
      *
      * @throws AssertionException
      */
     public static function isQuarterOfYear($value, $quarter, $message = '')
     {
         $quarter = (int) $quarter;
-        if ($quarter>0 && $quarter<4) {
+        if ($quarter < 1 || $quarter > 3) {
             throw new AssertionException('Provided quarter value must range from 1 to 3');
         }
 
         $value = self::convertToDateTime($value);
-        $currentQuarter = ($value->format('n') -1 / 3);
+        $currentQuarter = (($value->format('n')) / 4);
 
         if ($currentQuarter != $quarter) {
             throw new AssertionException(
@@ -735,15 +766,23 @@ class DateTimeAssertions
             );
         }
     }
+
     /**
      * @param string|DateTimeInterface $value
-     * @param string $message
-     *
-     * @throws AssertionException
+     * @param DateTimeZone             $timeZone
+     * @param string                   $message
      */
-    public static function isDayLightSavingTime($value, $message = '')
+    public static function isDayLightSavingTime($value, DateTimeZone $timeZone, $message = '')
     {
         $value = self::convertToDateTime($value);
-    }
+        $transitions = timezone_transitions_get($timeZone, $value->getTimestamp(), $value->getTimestamp());
 
+        if (is_array($transitions) && !empty($transitions)) {
+            foreach ($transitions as $transition) {
+                if (0 == $transition['isdst']) {
+                    throw new AssertionException(($message) ? $message : self::ASSERT_IS_DST);
+                }
+            }
+        }
+    }
 }

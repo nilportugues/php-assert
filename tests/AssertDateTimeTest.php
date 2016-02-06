@@ -3,6 +3,7 @@
 namespace NilPortugues\Tests\Assert;
 
 use DateTime;
+use DateTimeZone;
 use Exception;
 use NilPortugues\Assert\Assert;
 use NilPortugues\Assert\Assertions\DateTimeAssertions;
@@ -336,5 +337,202 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(Exception::class);
         Assert::isFutureDate(new DateTime('now'));
+    }
+
+    public function testItIsInNextWeek()
+    {
+        Assert::isInNextWeek(new DateTime('now +1 week'));
+    }
+
+    public function testItIsInNextWeekThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        Assert::isInNextWeek(new DateTime('now -1 week'));
+    }
+
+    public function testItIsInWeek()
+    {
+        $value = new DateTime('07-02-2016');
+        $weekNumber = $value->format('W');
+        Assert::isInWeek($value, $weekNumber);
+    }
+
+    public function testItIsInWeekThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $value = new DateTime('07-02-2016');
+        $weekNumber = (int) $value->format('W');
+        Assert::isInWeek($value, $weekNumber + 1);
+    }
+
+    public function testItIsInLastWeek()
+    {
+        $dateTime = new DateTime();
+        $lastWeek = $dateTime->modify('-7 days');
+        Assert::isInLastWeek($lastWeek);
+    }
+
+    public function testItIsInLastWeekThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $value = new DateTime('07-02-2015');
+        Assert::isInLastWeek($value);
+    }
+
+    public function testItIsInLastMonth()
+    {
+        $lastMonth = new DateTime('now -20 days');
+        Assert::isInLastMonth($lastMonth);
+    }
+
+    public function testItIsInLastMonthThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $value = new DateTime('07-02-2015');
+        Assert::isInLastMonth($value);
+    }
+
+    public function testItIsInMonth()
+    {
+        $next = new DateTime('07-02-2015');
+        Assert::isInMonth($next, 2);
+    }
+
+    public function testItIsInMonthThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $next = new DateTime('07-02-2015');
+        Assert::isInMonth($next, 3);
+    }
+
+    public function testItIsInNextMonth()
+    {
+        $next = new DateTime('now +1 month');
+        Assert::isInNextMonth($next);
+    }
+
+    public function testItIsInNextMonthThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $next = new DateTime('07-02-2015');
+        Assert::isInNextMonth($next);
+    }
+
+    public function testItIsInLastYear()
+    {
+        $next = new DateTime('now -1 year');
+        Assert::isInLastYear($next);
+    }
+
+    public function testItIsInLastYearThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $next = new DateTime('07-02-2013');
+        Assert::isInLastYear($next);
+    }
+
+    public function testItIsInYear()
+    {
+        $next = new DateTime('05-02-2016');
+        Assert::isInYear($next, 2016);
+    }
+
+    public function testItIsInYearThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $next = new DateTime('05-02-2016');
+        Assert::isInYear($next, 2017);
+    }
+
+    public function testItIsInNextYear()
+    {
+        $next = new DateTime('now +1 year');
+        Assert::isInNextYear($next);
+    }
+
+    public function testItIsInNextYearThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $next = new DateTime('now +2 year');
+        Assert::isInNextYear($next);
+    }
+
+    public function testItIsFirstHalfOfYear()
+    {
+        $date = new DateTime('05-02-2016');
+        Assert::isFirstHalfOfYear($date);
+    }
+
+    public function testItIsFirstHalfOfYearThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $date = new DateTime('05-12-2016');
+        Assert::isFirstHalfOfYear($date);
+    }
+
+    public function testItIsSecondHalfOfYear()
+    {
+        $date = new DateTime('05-12-2016');
+        Assert::isSecondHalfOfYear($date);
+    }
+
+    public function testItIsSecondHalfOfYearThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $date = new DateTime('05-02-2016');
+        Assert::isSecondHalfOfYear($date);
+    }
+
+    public function testItIsTrimesterOfYear()
+    {
+        $date = new DateTime('05-12-2016');
+        Assert::isTrimesterOfYear($date, 4);
+    }
+
+    public function testItIsTrimesterOfYearThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $date = new DateTime('05-12-2016');
+        Assert::isTrimesterOfYear($date, 3);
+    }
+
+    public function testItIsTrimesterOfYearWrongBoundsThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $date = new DateTime('05-12-2016');
+        Assert::isTrimesterOfYear($date, 100);
+    }
+
+    public function testItIsQuarterOfYearWrongBoundsThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $date = new DateTime('05-12-2016');
+        Assert::isQuarterOfYear($date, 100);
+    }
+
+    public function testItIsQuarterOfYear()
+    {
+        $date = new DateTime('05-12-2016');
+        Assert::isQuarterOfYear($date, 3);
+    }
+
+    public function testItIsQuarterOfYearThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $date = new DateTime('05-12-2016');
+        Assert::isQuarterOfYear($date, 1);
+    }
+
+    public function testItIsDayLightSavingTime()
+    {
+        $value = new DateTime('28-03-2016', new DateTimeZone('Europe/Madrid'));
+        Assert::isDayLightSavingTime($value, $value->getTimezone());
+    }
+
+    public function testItIsDayLightSavingTimeThrowsException()
+    {
+        $this->setExpectedException(Exception::class);
+        $value = new DateTime('22-03-2016', new DateTimeZone('Europe/Madrid'));
+        Assert::isDayLightSavingTime($value, $value->getTimezone());
     }
 }
