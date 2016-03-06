@@ -606,10 +606,14 @@ class DateTimeAssertions
     public static function isInMonth($value, $monthNumber, $message = '')
     {
         $value = self::convertToDateTime($value);
+        $currentYear = date('Y');
 
-        if ($value->format('n') != $monthNumber) {
+
+        if ($currentYear != $value->format('Y') ||
+            $monthNumber != $value->format('n')
+        ) {
             throw new AssertionException(
-                ($message) ? $message : sprintf(self::ASSERT_IS_IN_MONTH, (new DateTime($monthNumber))->format('F'))
+                ($message) ? $message : sprintf(self::ASSERT_IS_IN_MONTH, (new DateTime('1970-'.$monthNumber.'-01'))->format('F'))
             );
         }
     }

@@ -394,7 +394,7 @@ class AssertDateTimeTest extends \PHPUnit_Framework_TestCase
 
     public function testItIsInMonth()
     {
-        $next = new DateTime('07-02-2015');
+        $next = new DateTime('01-02-'.date('Y'));
         Assert::isInMonth($next, 2);
     }
 
