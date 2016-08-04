@@ -13,7 +13,8 @@
     ],
     "require-dev": {
         "phpunit/phpunit": "~4.8",
-        "fabpot/php-cs-fixer": "1.9.*"
+        "fabpot/php-cs-fixer": "1.9.*",
+        "satooshi/php-coveralls": "^1.0"
     },
     "autoload": {
         "psr-4": {
@@ -27,8 +28,5 @@
     },
     "config": {
         "bin-dir": "bin/"
-    },
-    "require": {
-        "satooshi/php-coveralls": "^1.0"
     }
 }
